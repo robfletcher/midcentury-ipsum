@@ -1,37 +1,51 @@
 buildscript {
-  repositories {
-    maven { url "http://oss.jfrog.org/repo" }
-    mavenCentral()
-  }
-  dependencies {
-    classpath 'org.ratpack-framework:ratpack-gradle:0.9.0-SNAPSHOT'
-  }
+	repositories {
+		maven { url "http://oss.jfrog.org/repo" }
+		mavenCentral()
+		maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
+	}
+	dependencies {
+		classpath "org.ratpack-framework:ratpack-gradle:0.9.0-SNAPSHOT"
+		classpath "org.gradle.plugins:gradle-compass:1.0.7"
+	}
 }
 
 repositories {
-  maven { url "http://oss.jfrog.org/repo" }
-  mavenCentral()
-  maven { url "http://repo.springsource.org/repo" }
+	maven { url "http://oss.jfrog.org/repo" }
+	mavenCentral()
+	maven { url "http://repo.springsource.org/repo" }
 }
 
 apply plugin: "ratpack-groovy"
+apply plugin: "compass"
 apply plugin: "idea"
 
+compass {
+	cssDir = file("src/ratpack/public/css")
+	sassDir = file("src/main/sass")
+	debugInfo = false
+	environment = "production"
+}
+
+processResources.inputs.files compileSass
+run.dependsOn watchSass
+clean.dependsOn cleanCompileSass
+
 idea {
-    project {
-        jdkName "1.7"
-        languageLevel "1.7"
-    }
+	project {
+		jdkName "1.7"
+		languageLevel "1.7"
+	}
 }
 
 dependencies {
-    springloaded "org.springsource.springloaded:springloaded-core:1.1.1"
+	springloaded "org.springsource.springloaded:springloaded-core:1.1.1"
 }
 
 run {
-    systemProperty "ratpack.reloadable", "true"
+	systemProperty "ratpack.reloadable", "true"
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.7-rc-1'
+	gradleVersion = "1.7-rc-1"
 }

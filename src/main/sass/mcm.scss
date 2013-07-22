@@ -1,0 +1,9 @@
+@import "compass";
+@import "normalize";
+
+$strict-normalize: false;
+$base-font-family: serif;
+
+*, *:before, *:after {
+  @include box-sizing(border-box);
+}

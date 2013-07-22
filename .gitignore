@@ -1,4 +1,9 @@
-.gradle/
+/.gradle/
+/.sass-cache/
+/.jruby/
+
 *.iml
 *.ipr
 *.iws
+
+/src/ratpack/public/css/
