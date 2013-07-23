@@ -2,6 +2,9 @@
 /.sass-cache/
 /.jruby/
 
+/build/
+
+/out/
 *.iml
 *.ipr
 *.iws
