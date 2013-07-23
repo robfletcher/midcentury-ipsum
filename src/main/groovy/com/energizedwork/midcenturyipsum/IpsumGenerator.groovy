@@ -90,8 +90,6 @@ class IpsumGenerator {
 		for (para in paras) {
 			buffer << "<p>" << para << "</p>"
 		}
-		println "ipsum..."
-		println buffer as String
 		return buffer as String
 	}
 
