@@ -9,7 +9,7 @@ ratpack {
 	handlers {
 		service(new IpsumGenerator()) {
 			get {
-				get(TemplateRenderer).render "index.html", title: "Mid-Century Ipsum", ipsum: get(IpsumGenerator).generateText()
+				get(TemplateRenderer).render "index.html", ipsum: get(IpsumGenerator).generateText()
 			}
 		}
 		assets "public"

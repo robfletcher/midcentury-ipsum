@@ -2,7 +2,7 @@
 
 $strict-normalize: false;
 $base-font-family: serif;
-$content-width: 960px;
+$content-width: 768px;
 $page-gutter: 1rem;
 $header-font-size: $base-font-size * 6;
 
@@ -12,6 +12,13 @@ $header-font-size: $base-font-size * 6;
 
 body {
   @include contrasted($body-background);
+
+  opacity: 0;
+  @include single-transition(opacity, 0.2s);
+  
+  .wf-active &, .wf-inactive & {
+    opacity: 1;
+  }
 }
 
 #page-header {
@@ -33,11 +40,13 @@ body {
       bottom: 0;
     }
 
-    word-wrap: break-all;
-    &:first-line {
-      font: {
-        width: 900;
-        style: normal;
+    .word {
+      display: block;
+      &:first-child {
+        font: {
+          width: 900;
+          style: normal;
+        }
       }
     }
 
