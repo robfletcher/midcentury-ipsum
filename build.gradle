@@ -51,3 +51,15 @@ run {
 task wrapper(type: Wrapper) {
 	gradleVersion = "1.7-rc-1"
 }
+
+installApp {
+	from run.workingDir
+}
+
+startScripts {
+	doLast {
+		unixScript.text = unixScript.text.replace('DEFAULT_JVM_OPTS=""', 'DEFAULT_JVM_OPTS="-Dratpack.port=$PORT"')
+	}
+}
+
+task stage(dependsOn: ['clean', 'installApp'], description: "Heroku uses this as default")
