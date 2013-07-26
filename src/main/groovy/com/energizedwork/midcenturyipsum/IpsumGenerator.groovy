@@ -55,6 +55,7 @@ class IpsumGenerator {
 			"ring-a-ding",
 			"roadside",
 			"rye",
+			"sassy",
 			"Saul Bass",
 			"skinny lapel",
 			"sleek",
