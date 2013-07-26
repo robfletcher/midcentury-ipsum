@@ -1,9 +1,84 @@
+@import "compass";
+
 $strict-normalize: false;
 $base-font-family: serif;
+$content-width: 960px;
+$page-gutter: 1rem;
+$header-font-size: $base-font-size * 6;
 
-@import "compass";
 @import "normalize";
+@import "layout";
+@import "colorscheme";
 
-*, *:before, *:after {
-  @include box-sizing(border-box);
+body {
+  @include contrasted($body-background);
+}
+
+#page-header {
+  @include contrasted($grey);
+
+  h1 {
+    font: {
+      family: 'Playfair Display', serif;
+      weight: 700;
+      style: italic;
+      size: $header-font-size;
+    }
+    line-height: 1;
+    text-transform: lowercase;
+    @include padding-leader(1, $header-font-size);
+    @include padding-trailer(1, $header-font-size);
+    margin: {
+      top: 0;
+      bottom: 0;
+    }
+
+    word-wrap: break-all;
+    &:first-line {
+      font: {
+        width: 900;
+        style: normal;
+      }
+    }
+
+    .wf-active & {
+      position: relative;
+      top: -0.13em;
+    }
+  }
+}
+
+#ipsum {
+  font: {
+    family: 'Cardo', serif;
+  }
+  @include adjust-font-size-to(20px);
+}
+
+#page-footer {
+  @include rhythm(2, 1, 1, 0);
+  padding: {
+    left: 1rem;
+    right: 1rem;
+  }
+  font: {
+    family: 'PT Mono', sans-serif;
+  }
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  text-align: right;
+  @include contrasted($footer-background);
+
+  p {
+    @include rhythm(1, 0, 0, 1);
+  }
+
+  a {
+    color: $yellow;
+    text-decoration: none;
+    
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
 }

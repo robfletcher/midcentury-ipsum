@@ -1,0 +1,21 @@
+@include establish-baseline;
+
+*, *:before, *:after {
+  @include box-sizing(border-box);
+}
+
+@mixin content-width {
+  max-width: $content-width;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+  padding: {
+    left: 1rem;
+    right: 1rem;
+  }
+}
+
+#page-header h1, #ipsum, #page-footer p {
+  @include content-width;
+}
