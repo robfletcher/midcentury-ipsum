@@ -7,7 +7,7 @@ ratpack {
 		get(TemplatingModule).staticallyCompile = true
 	}
 	handlers {
-		context(new IpsumGenerator()) {
+		service(new IpsumGenerator()) {
 			get {
 				get(TemplateRenderer).render "index.html", title: "Mid-Century Ipsum", ipsum: get(IpsumGenerator).generateText()
 			}
