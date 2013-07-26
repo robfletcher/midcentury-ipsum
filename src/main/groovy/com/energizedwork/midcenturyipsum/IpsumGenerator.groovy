@@ -27,6 +27,7 @@ class IpsumGenerator {
 			"creative",
 			"Dieter Rams",
 			"diner",
+			"dingbat",
 			"doo-wop",
 			"drive-in",
 			"Eames chair",
@@ -40,6 +41,7 @@ class IpsumGenerator {
 			"Herman Miller",
 			"highway",
 			"hostess trolley",
+			"interior",
 			"jazz",
 			"jet age",
 			"Jetsons",
@@ -67,7 +69,7 @@ class IpsumGenerator {
 			"upswept",
 			"whiskey",
 			"zephyr"
-	]
+	].asImmutable()
 
 	private final Random randomizer = new Random()
 
@@ -78,8 +80,9 @@ class IpsumGenerator {
 			SENTENCES_PER_PARAGRAPH.times {
 				int numWords = randomInt(WORDS_PER_SENTENCE)
 				def words = []
-				numWords.times {
-					words << WORD_LIST[randomInt(0..<WORD_LIST.size())]
+				while (words.size() < numWords) {
+					def word = WORD_LIST[randomInt(0..<WORD_LIST.size())]
+					if (!words.contains(word)) words << word
 				}
 				sentences << words.join(" ").capitalize()
 			}
