@@ -16,6 +16,6 @@ EOF
 if [ ! -f $BUILD_DIR/Procfile ]; then
 cat <<EOF
 default_process_types:
-  web: build/install/midcenturyipsum/bin/midcenturyipsum build/install/midcenturyipsum/ratpack.groovy
+  web: build/install/midcentury-ipsum/bin/midcentury-ipsum build/install/midcentury-ipsum/ratpack.groovy
 EOF
 fi
