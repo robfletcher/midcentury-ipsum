@@ -16,6 +16,6 @@
   }
 }
 
-#page-header h1, #ipsum, #page-footer p {
+#page-header, #ipsum, #page-footer p {
   @include content-width;
 }

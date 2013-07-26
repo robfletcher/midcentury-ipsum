@@ -5,6 +5,9 @@ $base-font-family: serif;
 $content-width: 768px;
 $page-gutter: 1rem;
 $header-font-size: $base-font-size * 6;
+$header-font: 'Playfair Display', serif;
+$body-font: 'Cardo', serif;
+$footer-font: 'PT Mono', sans-serif;
 
 @import "normalize";
 @import "layout";
@@ -31,20 +34,22 @@ body {
   }
 }
 
-#page-header {
+.header-container {
   @include contrasted($grey);
+}
 
+#page-header {
+  @include padding-leader(1, $header-font-size);
+  @include padding-trailer(1, $header-font-size);
   h1 {
     font: {
-      family: 'Playfair Display', serif;
+      family: $header-font;
       weight: 700;
       style: italic;
       size: $header-font-size;
     }
     line-height: 1;
     text-transform: lowercase;
-    @include padding-leader(1, $header-font-size);
-    @include padding-trailer(1, $header-font-size);
     margin: {
       top: 0;
       bottom: 0;
@@ -59,17 +64,21 @@ body {
         }
       }
     }
+  }
 
-    .wf-active & {
-      position: relative;
-      top: -0.13em;
+  .tagline {
+    @include adjust-font-size-to(20px);
+    @include rhythm(1, 0, 0, 0, 20px);
+    font: {
+      family: $footer-font;
     }
+    text-align: right;
   }
 }
 
 #ipsum {
   font: {
-    family: 'Cardo', serif;
+    family: $body-font;
   }
   padding-bottom: image-height("dino.png") / 2;
   @include adjust-font-size-to(20px);
@@ -83,7 +92,7 @@ body {
     right: 1rem;
   }
   font: {
-    family: 'PT Mono', sans-serif;
+    family: $footer-font;
   }
   text-transform: uppercase;
   letter-spacing: 0.5em;
