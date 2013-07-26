@@ -23,6 +23,8 @@ apply plugin: "idea"
 compass {
 	cssDir = file("src/ratpack/public/css")
 	sassDir = file("src/main/sass")
+	imagesDir = file("src/ratpack/public/img")
+	relativeAssets = true
 	debugInfo = false
 	environment = "production"
 }

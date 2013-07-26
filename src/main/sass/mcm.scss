@@ -13,6 +13,16 @@ $header-font-size: $base-font-size * 6;
 body {
   @include contrasted($body-background);
 
+  background: {
+    image: image-url("dino.png");
+    position: center bottom;
+    repeat: no-repeat;
+  }
+
+  @media only screen and (min-width: image-width("dino.png")) {
+    @include background-size(contain);
+  }
+
   opacity: 0;
   @include single-transition(opacity, 0.2s);
   
@@ -61,11 +71,13 @@ body {
   font: {
     family: 'Cardo', serif;
   }
+  padding-bottom: image-height("dino.png") / 2;
   @include adjust-font-size-to(20px);
 }
 
 #page-footer {
-  @include rhythm(2, 1, 1, 0);
+  @include padding-leader(1);
+  @include padding-trailer(1);
   padding: {
     left: 1rem;
     right: 1rem;
@@ -75,6 +87,7 @@ body {
   }
   text-transform: uppercase;
   letter-spacing: 0.5em;
+
   text-align: right;
   @include contrasted($footer-background);
 
