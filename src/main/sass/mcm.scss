@@ -5,6 +5,8 @@ $base-font-family: serif;
 $content-width: 768px;
 $page-gutter: 1rem;
 $header-font-size: $base-font-size * 6;
+$tagline-font-size: 20px;
+$ipsum-font-size: 20px;
 $header-font: 'Playfair Display', serif;
 $body-font: 'Cardo', serif;
 $footer-font: 'PT Mono', sans-serif;
@@ -67,8 +69,8 @@ body {
   }
 
   .tagline {
-    @include adjust-font-size-to(20px);
-    @include rhythm(1, 0, 0, 0, 20px);
+    @include adjust-font-size-to($tagline-font-size);
+    @include rhythm(1, 0, 0, 1, $tagline-font-size);
     font: {
       family: $footer-font;
     }
@@ -81,7 +83,7 @@ body {
     family: $body-font;
   }
   padding-bottom: image-height("dino.png") / 2;
-  @include adjust-font-size-to(20px);
+  @include adjust-font-size-to($ipsum-font-size);
 }
 
 #page-footer {
