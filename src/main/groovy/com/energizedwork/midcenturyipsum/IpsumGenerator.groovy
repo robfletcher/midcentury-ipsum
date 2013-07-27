@@ -1,8 +1,5 @@
 package com.energizedwork.midcenturyipsum
 
-import groovy.transform.CompileStatic
-
-@CompileStatic
 class IpsumGenerator {
 
 	public static final int DEFAULT_PARAGRAPHS = 4
