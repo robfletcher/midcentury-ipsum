@@ -20,6 +20,9 @@ apply plugin: "ratpack-groovy"
 apply plugin: "compass"
 apply plugin: "idea"
 
+sourceCompatibility = "1.6"
+targetCompatibility = "1.6"
+
 compass {
 	cssDir = file("src/ratpack/public/css")
 	sassDir = file("src/main/sass")
@@ -35,8 +38,8 @@ clean.dependsOn cleanCompileSass
 
 idea {
 	project {
-		jdkName "1.6"
-		languageLevel "1.6"
+		jdkName "1.7"
+		languageLevel "1.7"
 	}
 }
 
