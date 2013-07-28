@@ -1,17 +1,17 @@
 import com.energizedwork.midcenturyipsum.IpsumGenerator
+import com.energizedwork.midcenturyipsum.IpsumGeneratorModule
 import org.ratpackframework.groovy.templating.*
 import static org.ratpackframework.groovy.RatpackScript.ratpack
 
 ratpack {
-	modules {
-		get(TemplatingModule).staticallyCompile = true
-	}
-	handlers {
-		service(new IpsumGenerator()) {
-			get {
-				get(TemplateRenderer).render "index.html", ipsum: get(IpsumGenerator).generateText()
-			}
-		}
-		assets "public"
-	}
+    modules {
+        register new IpsumGeneratorModule()
+        get(TemplatingModule).staticallyCompile = true
+    }
+    handlers {
+        get { TemplateRenderer renderer, IpsumGenerator generator ->
+            renderer.render "index.html", ipsum: generator.generateText()
+        }
+        assets "public"
+    }
 }
