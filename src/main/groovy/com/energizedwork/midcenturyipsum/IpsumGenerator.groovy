@@ -22,7 +22,7 @@ class IpsumGenerator {
 				def words = []
 				while (words.size() < numWords) {
 					def word = WORD_LIST[randomInt(0..<WORD_LIST.size())]
-					if (!words.contains(word)) words << word
+					if (!words.contains(word)) words << word.toLowerCase()
 				}
 				sentences << words.join(" ").capitalize()
 			}
