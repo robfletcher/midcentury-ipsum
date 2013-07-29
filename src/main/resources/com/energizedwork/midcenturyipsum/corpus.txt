@@ -3,8 +3,10 @@ acetate
 art department
 atomic
 Atompunk
+bachelor pad
 Bakelite
 beatnik
+big band
 bourbon
 bowling alley
 broad
@@ -23,6 +25,7 @@ Eames chair
 executive
 floating staircase
 Formica
+futuristic
 Frutiger
 geometric
 googie
@@ -32,6 +35,7 @@ Herman Miller
 highway
 hip
 hostess trolley
+hot rod
 interior
 jazz
 jet-age
@@ -43,11 +47,14 @@ Palm Springs
 Pan Am
 pocket square
 populuxe
+ratpack
+ray gun
 ring-a-ding
 roadside
 rye
 sassy
 Saul Bass
+Scandinavian
 skinny lapel
 sleek
 son of a bitch
