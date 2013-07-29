@@ -9,9 +9,14 @@ ratpack {
         get(TemplatingModule).staticallyCompile = true
     }
     handlers {
-        get { TemplateRenderer renderer, IpsumGenerator generator ->
-			def ipsum = generator.generateText()
-			renderer.render "index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join("")
+        get(":paras?") { TemplateRenderer renderer, IpsumGenerator generator ->
+			try {
+				int paras = pathTokens.paras?.toInteger() ?: IpsumGenerator.DEFAULT_PARAGRAPHS
+				def ipsum = generator.generateText(paras)
+				renderer.render "index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join("")
+			} catch (NumberFormatException e) {
+				clientError 400
+			}
         }
         assets "public"
     }
