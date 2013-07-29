@@ -21,7 +21,7 @@ ratpack {
 					response.send toJson(ipsum)
 				}
 				.type("text/html") {
-					renderer.render "index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join("")
+					renderer.render "index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join(""), paras: paras
 				}
 				.send()
 			} catch (NumberFormatException e) {

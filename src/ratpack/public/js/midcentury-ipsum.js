@@ -10,3 +10,15 @@ WebFontConfig = {
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(wf, s);
 })();
+
+(function($) {
+    $('[name="paras"]').on('change', function(event) {
+        $.getJSON("/" + $(event.target).val(), function(json) {
+            var paragraphs = "";
+            $.each(json, function(index, item) {
+                paragraphs += "<p>" + item + "</p>";
+            });
+            $('#ipsum').html(paragraphs);
+        });
+    });
+})(Zepto);
