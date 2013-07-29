@@ -95,10 +95,15 @@ body {
 }
 
 #customize-form {
+  display: none;
   font: {
     family: $form-font;
   }
   text-align: center;
+
+  .js & {
+    display: block;
+  }
 
   label {
     display: block;
