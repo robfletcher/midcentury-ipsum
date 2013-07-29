@@ -13,7 +13,8 @@ ratpack {
 		get(":paras?") { TemplateRenderer renderer, IpsumGenerator generator ->
 			try {
 				int paras = pathTokens.paras?.toInteger() ?: DEFAULT_PARAGRAPHS
-				def ipsum = generator.generateText(paras)
+				paras = Math.min(paras, 25)
+				def ipsum = generator.paragraphs(paras)
 				accepts.type("text/plain") {
 					response.send ipsum.join("\n")
 				}
