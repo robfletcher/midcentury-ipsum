@@ -4,16 +4,17 @@ $strict-normalize: false;
 $base-font-family: serif;
 $content-width: 768px;
 $page-gutter: 1rem;
-$header-font-size: $base-font-size * 6;
 $tagline-font-size: 20px;
 $ipsum-font-size: 20px;
 $header-font: 'Playfair Display', serif;
+$tagline-font: 'PT Mono', sans-serif;
 $body-font: 'Cardo', serif;
 $footer-font: 'PT Mono', sans-serif;
 
 @import "normalize";
 @import "layout";
 @import "colorscheme";
+@import "breakpoints";
 
 body {
   @include contrasted($body-background);
@@ -41,8 +42,10 @@ body {
 }
 
 #page-header {
+  $header-font-size: $base-font-size * 4.5;
   @include padding-leader(1, $header-font-size);
   @include padding-trailer(1, $header-font-size);
+
   h1 {
     font: {
       family: $header-font;
@@ -72,9 +75,21 @@ body {
     @include adjust-font-size-to($tagline-font-size);
     @include rhythm(1, 0, 0, 1, $tagline-font-size);
     font: {
-      family: $footer-font;
+      family: $tagline-font;
+      weight: 400;
+      style: normal;
     }
     text-align: right;
+  }
+
+  @include if-width-at-least(640px) {
+    $header-font-size: $base-font-size * 6;
+    @include padding-leader(1, $header-font-size);
+    @include padding-trailer(1, $header-font-size);
+
+    h1 {
+      font-size: $header-font-size;
+    }
   }
 }
 
@@ -97,7 +112,7 @@ body {
     family: $footer-font;
   }
   text-transform: uppercase;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.25em;
 
   text-align: right;
   @include contrasted($footer-background);
@@ -113,5 +128,9 @@ body {
     &:hover, &:focus {
       text-decoration: underline;
     }
+  }
+
+  @include if-width-at-least(480px) {
+    letter-spacing: 0.5em;
   }
 }
