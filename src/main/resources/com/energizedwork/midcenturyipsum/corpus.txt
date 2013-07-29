@@ -1,6 +1,7 @@
 abstract
 acetate
 art department
+atomic
 Atompunk
 Bakelite
 beatnik
@@ -26,12 +27,14 @@ Frutiger
 geometric
 googie
 Helvetica
+hepcat
 Herman Miller
 highway
+hip
 hostess trolley
 interior
 jazz
-jet age
+jet-age
 Jetsons
 keen
 mid-century
@@ -48,7 +51,7 @@ Saul Bass
 skinny lapel
 sleek
 son of a bitch
-space age
+space-age
 starburst
 suburban
 swingin'
@@ -56,5 +59,6 @@ tailfin
 tiki
 Tomorrowland
 upswept
+vinyl
 whiskey
 zephyr
