@@ -2,6 +2,7 @@ import com.energizedwork.midcenturyipsum.*
 import org.ratpackframework.groovy.templating.*
 import static groovy.json.JsonOutput.toJson
 import static org.ratpackframework.groovy.RatpackScript.ratpack
+import static com.energizedwork.midcenturyipsum.IpsumGenerator.DEFAULT_PARAGRAPHS
 
 ratpack {
 	modules {
@@ -11,7 +12,7 @@ ratpack {
 	handlers {
 		get(":paras?") { TemplateRenderer renderer, IpsumGenerator generator ->
 			try {
-				int paras = pathTokens.paras?.toInteger() ?: IpsumGenerator.DEFAULT_PARAGRAPHS
+				int paras = pathTokens.paras?.toInteger() ?: DEFAULT_PARAGRAPHS
 				def ipsum = generator.generateText(paras)
 				accepts.type("text/plain") {
 					response.send ipsum.join("\n")
