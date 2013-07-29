@@ -74,7 +74,7 @@ class IpsumGenerator {
 
 	private final Random randomizer = new Random()
 
-	String generateText(int numParas = DEFAULT_PARAGRAPHS) {
+	Iterable<String> generateText(int numParas = DEFAULT_PARAGRAPHS) {
 		def paras = []
 		numParas.times {
 			def sentences = []
@@ -89,12 +89,7 @@ class IpsumGenerator {
 			}
 			paras << sentences.join(". ") + "."
 		}
-
-		def buffer = new StringBuffer()
-		for (para in paras) {
-			buffer << "<p>" << para << "</p>"
-		}
-		return buffer as String
+		return paras
 	}
 
 	private int randomInt(IntRange range) {

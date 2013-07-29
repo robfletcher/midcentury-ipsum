@@ -10,7 +10,8 @@ ratpack {
     }
     handlers {
         get { TemplateRenderer renderer, IpsumGenerator generator ->
-            renderer.render "index.html", ipsum: generator.generateText()
+			def ipsum = generator.generateText()
+			renderer.render "index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join("")
         }
         assets "public"
     }
