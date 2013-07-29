@@ -74,7 +74,7 @@ class IpsumGenerator {
 
 	private final Random randomizer = new Random()
 
-	Iterable<String> generateText(int numParas = DEFAULT_PARAGRAPHS) {
+	Collection<String> generateText(int numParas = DEFAULT_PARAGRAPHS) {
 		def paras = []
 		numParas.times {
 			def sentences = []
