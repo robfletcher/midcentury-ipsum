@@ -8,6 +8,7 @@ $tagline-font-size: 20px;
 $ipsum-font-size: 20px;
 $header-font: 'Playfair Display', serif;
 $tagline-font: 'PT Mono', sans-serif;
+$form-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $body-font: 'Cardo', serif;
 $footer-font: 'PT Mono', sans-serif;
 
@@ -90,6 +91,25 @@ body {
     h1 {
       font-size: $header-font-size;
     }
+  }
+}
+
+#customize-form {
+  font: {
+    family: $form-font;
+  }
+  text-align: center;
+
+  label {
+    display: block;
+    @include rhythm(1, 0, 0, 1);
+  }
+
+  input {
+    font: {
+      family: $form-font;
+    }
+    width: 2.5em;
   }
 }
 
