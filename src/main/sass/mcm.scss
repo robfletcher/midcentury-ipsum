@@ -1,16 +1,23 @@
 @import "compass";
 
+$default-transition-duration: 0.25s;
+
 $strict-normalize: false;
 $base-font-family: serif;
 $content-width: 768px;
 $page-gutter: 1rem;
 $tagline-font-size: 20px;
 $ipsum-font-size: 20px;
-$header-font: 'Playfair Display', serif;
-$tagline-font: 'PT Mono', sans-serif;
-$form-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$body-font: 'Cardo', serif;
-$footer-font: 'PT Mono', sans-serif;
+
+$serif-font-stack: "Cardo", Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+$sans-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$display-font-stack: "Playfair Display", "Bodoni MT", Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+$mono-font-stack: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+$header-font: $display-font-stack;
+$tagline-font: $mono-font-stack;
+$form-font: $sans-font-stack;
+$body-font: $serif-font-stack;
+$footer-font: $mono-font-stack;
 
 @import "normalize";
 @import "layout";
@@ -129,15 +136,16 @@ body {
 #page-footer {
   @include padding-leader(1);
   @include padding-trailer(1);
-  padding: {
-    left: 1rem;
-    right: 1rem;
-  }
   font: {
     family: $footer-font;
   }
   text-transform: uppercase;
   letter-spacing: 0.25em;
+  margin-right: -0.25em;
+  @include if-width-at-least(480px) {
+    letter-spacing: 0.5em;
+    margin-right: -0.5em;
+  }
 
   text-align: right;
   @include contrasted($footer-background);
@@ -147,15 +155,19 @@ body {
   }
 
   a {
-    color: $yellow;
+    color: $footer-link-color;
     text-decoration: none;
-    
-    &:hover, &:focus {
-      text-decoration: underline;
+    margin-left: -0.25em;
+    padding-left: 0.25em;
+    @include if-width-at-least(480px) {
+      margin-left: -0.5em;
+      padding-left: 0.5em;
     }
-  }
+    @include single-transition;
 
-  @include if-width-at-least(480px) {
-    letter-spacing: 0.5em;
+    &:hover, &:focus {
+      background-color: $footer-link-color;
+      color: $footer-background;
+    }
   }
 }

@@ -1,5 +1,5 @@
 WebFontConfig = {
-    google: { families: [ 'Playfair+Display:900,700italic:latin', 'PT+Mono::latin', 'Cardo::latin' ] }
+    google: { families: [ 'Playfair+Display:900,700italic:latin', 'Cardo::latin' ] }
 };
 (function() {
     var wf = document.createElement('script');
