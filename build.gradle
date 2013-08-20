@@ -11,6 +11,7 @@ buildscript {
 }
 
 repositories {
+	mavenLocal()
 	maven { url "http://oss.jfrog.org/repo" }
 	mavenCentral()
 	maven { url "http://repo.springsource.org/repo" }
@@ -52,7 +53,7 @@ run {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = "1.6"
+	gradleVersion = "1.7"
 }
 
 installApp {
