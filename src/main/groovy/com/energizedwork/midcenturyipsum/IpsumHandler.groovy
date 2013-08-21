@@ -20,20 +20,24 @@ class IpsumHandler implements Handler {
 
 	@Override
 	void handle(Context context) {
-		context.with {
-			int paras = getPathTokens().paras?.toInteger() ?: DEFAULT_PARAGRAPHS
+		try {
+			int paras = context.getPathTokens().paras?.toInteger() ?: DEFAULT_PARAGRAPHS
 			paras = Math.min(paras, 25)
 			def ipsum = generator.paragraphs(paras)
 
-			respond getByContent().plainText {
-				getResponse().send ipsum.join("\n")
+			context.with {
+				respond getByContent().plainText {
+					getResponse().send ipsum.join("\n")
+				}
+				.json {
+					getResponse().send toJson(ipsum)
+				}
+				.html {
+					render groovyTemplate("index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join(""), paras: paras)
+				}
 			}
-			.json {
-				getResponse().send toJson(ipsum)
-			}
-			.html {
-				render groovyTemplate("index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join(""), paras: paras)
-			}
+		} catch (NumberFormatException e) {
+			context.clientError 400
 		}
 	}
 

@@ -8,7 +8,7 @@ class IpsumGeneratorModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(MidCenturyIpsumGenerator)
+        bind(IpsumGenerator).to(MidCenturyIpsumGenerator)
     }
 
 }

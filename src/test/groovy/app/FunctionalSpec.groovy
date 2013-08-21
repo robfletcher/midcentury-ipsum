@@ -1,8 +1,8 @@
 package app
 
-import org.ratpackframework.test.ScriptAppSpec
+import org.ratpackframework.groovy.test.ScriptAppSpec
 
-import static com.energizedwork.midcenturyipsum.IpsumGenerator.DEFAULT_PARAGRAPHS
+import static com.energizedwork.midcenturyipsum.IpsumHandler.DEFAULT_PARAGRAPHS
 
 class FunctionalSpec extends ScriptAppSpec {
 
@@ -12,7 +12,7 @@ class FunctionalSpec extends ScriptAppSpec {
 
 		then:
 		response.statusCode == 200
-		response.header("Content-Type") == "text/plain"
+		response.header("Content-Type") == "text/plain;charset=UTF-8"
 		response.body.asString().findAll("\n").size() == (DEFAULT_PARAGRAPHS - 1) //Subtract one from the default as the final line in plain doesn't have a new line ending
 
 		when:
