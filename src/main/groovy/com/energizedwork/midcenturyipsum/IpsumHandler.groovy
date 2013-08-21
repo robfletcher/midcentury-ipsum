@@ -1,12 +1,10 @@
 package com.energizedwork.midcenturyipsum
 
 import com.google.inject.Inject
-import groovy.transform.CompileStatic
 import org.ratpackframework.handling.*
 import static groovy.json.JsonOutput.toJson
 import static org.ratpackframework.groovy.Template.groovyTemplate
 
-@CompileStatic
 class IpsumHandler implements Handler {
 
 	public static final int DEFAULT_PARAGRAPHS = 4
@@ -21,16 +19,16 @@ class IpsumHandler implements Handler {
 	@Override
 	void handle(Context context) {
 		try {
-			int paras = context.getPathTokens().paras?.toInteger() ?: DEFAULT_PARAGRAPHS
-			paras = Math.min(paras, 25)
-			def ipsum = generator.paragraphs(paras)
-
 			context.with {
-				respond getByContent().plainText {
-					getResponse().send ipsum.join("\n")
+				int paras = pathTokens.paras?.toInteger() ?: DEFAULT_PARAGRAPHS
+				paras = Math.min(paras, 25)
+				def ipsum = generator.paragraphs(paras)
+
+				respond byContent.plainText {
+					response.send ipsum.join("\n")
 				}
 				.json {
-					getResponse().send toJson(ipsum)
+					response.send toJson(ipsum)
 				}
 				.html {
 					render groovyTemplate("index.html", ipsum: ipsum.collect { "<p>$it</p>" }.join(""), paras: paras)
