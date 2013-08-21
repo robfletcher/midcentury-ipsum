@@ -6,12 +6,11 @@ buildscript {
 	}
 	dependencies {
 		classpath "org.ratpack-framework:ratpack-gradle:0.9.0-SNAPSHOT"
-		classpath "org.gradle.plugins:gradle-compass:1.0.7"
+		classpath "org.gradle.plugins:gradle-compass:1.0.9"
 	}
 }
 
 repositories {
-	mavenLocal()
 	maven { url "http://oss.jfrog.org/repo" }
 	mavenCentral()
 	maven { url "http://repo.springsource.org/repo" }
