@@ -1,5 +1,6 @@
 package com.energizedwork.midcenturyipsum
 
+import com.google.common.collect.ImmutableMap
 import org.ratpackframework.groovy.Template
 import org.ratpackframework.path.PathBinding
 import org.ratpackframework.path.internal.DefaultPathTokens
@@ -17,7 +18,7 @@ class IpsumHandlerSpec extends Specification {
 
 	void "by default renders 4 paragraphs"() {
 		given:
-			pathBinding.getTokens() >> new DefaultPathTokens(EMPTY_MAP)
+			pathBinding.getTokens() >> new DefaultPathTokens(ImmutableMap.<String,String>builder().build())
 			def handler = new IpsumHandler(generator)
 
 		when:
@@ -37,7 +38,7 @@ class IpsumHandlerSpec extends Specification {
 
 	void "renders specified number of paragraphs"() {
 		given:
-			pathBinding.getTokens() >> new DefaultPathTokens(paras: "1")
+			pathBinding.getTokens() >> new DefaultPathTokens(ImmutableMap.<String,String>builder().put('paras', "1").build())
 			def handler = new IpsumHandler(generator)
 
 		when:
@@ -58,7 +59,7 @@ class IpsumHandlerSpec extends Specification {
 	void "renders content type appropriate for accept header of #acceptHeader"() {
 		given:
 			generator.paragraphs(_) >> ["lorem ipsum"]
-			pathBinding.getTokens() >> new DefaultPathTokens(EMPTY_MAP)
+			pathBinding.getTokens() >> new DefaultPathTokens(ImmutableMap.<String,String>builder().build())
 			def handler = new IpsumHandler(generator)
 
 		when:
@@ -83,7 +84,7 @@ class IpsumHandlerSpec extends Specification {
 	void "renders content type appropriate for accept header of text/html"() {
 		given:
 			generator.paragraphs(_) >> ["lorem ipsum"]
-			pathBinding.getTokens() >> new DefaultPathTokens(EMPTY_MAP)
+			pathBinding.getTokens() >> new DefaultPathTokens(ImmutableMap.<String,String>builder().build())
 			def handler = new IpsumHandler(generator)
 
 		when:
