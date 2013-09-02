@@ -1,10 +1,21 @@
 package app
 
-import org.ratpackframework.groovy.test.ScriptAppSpec
+
+import org.ratpackframework.groovy.test.LocalScriptApplicationUnderTest
+import org.ratpackframework.groovy.test.TestHttpClient
+import spock.lang.Specification
+
 
 import static com.energizedwork.midcenturyipsum.IpsumHandler.DEFAULT_PARAGRAPHS
 
-class FunctionalSpec extends ScriptAppSpec {
+class FunctionalSpec extends Specification {
+
+	def aut = new LocalScriptApplicationUnderTest()
+	@Delegate TestHttpClient client = aut.httpClient()
+
+	def setup(){
+		client.resetRequest()
+	}
 
 	def "root default paragraphs"() {
 		when:
@@ -14,7 +25,9 @@ class FunctionalSpec extends ScriptAppSpec {
 		response.statusCode == 200
 		response.header("Content-Type") == "text/plain;charset=UTF-8"
 		response.body.asString().findAll("\n").size() == (DEFAULT_PARAGRAPHS - 1) //Subtract one from the default as the final line in plain doesn't have a new line ending
+	}
 
+	def "root default paragraphs text/html"() {
 		when:
 		request.header("Accept", "text/html")
 		get()
@@ -23,7 +36,9 @@ class FunctionalSpec extends ScriptAppSpec {
 		response.statusCode == 200
 		response.header("Content-Type") == "text/html;charset=UTF-8"
 		response.body.asString().findAll("<p>.*</p>").size() == DEFAULT_PARAGRAPHS
+	}
 
+	def "root default paragraphs application/json"() {
 		when:
 		request.header("Accept", "application/json")
 		get()
@@ -62,4 +77,7 @@ class FunctionalSpec extends ScriptAppSpec {
 		response.jsonPath().getList("").size() == 25
 	}
 
+	def cleanup() {
+		aut.stop()
+	}
 }

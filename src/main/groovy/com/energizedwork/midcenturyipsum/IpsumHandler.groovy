@@ -20,7 +20,7 @@ class IpsumHandler implements Handler {
 	void handle(Context context) {
 		try {
 			context.with {
-				int paras = pathTokens.getAsInt("paras") ?: DEFAULT_PARAGRAPHS
+				int paras = pathTokens.asInt("paras") ?: DEFAULT_PARAGRAPHS
 				paras = Math.min(paras, 25)
 				def ipsum = generator.paragraphs(paras)
 
