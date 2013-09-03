@@ -10,6 +10,8 @@ BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 BUILD_DIR=$1
 CACHE_DIR=$2
 
+echo "Working with cache [$CACHE_DIR] and build [$BUILD_DIR] directories..."
+
 #env variables
 JAVA_DIST="openjdk1.7.0_21"
 JDK7_URL="https://s3.amazonaws.com/heroku-jdk/${JAVA_DIST}.tar.gz"
@@ -41,6 +43,8 @@ else
 fi
 
 cd $BUILD_DIR
+
+echo "Setting Java Home to $BUILD_DIR/.jdk7 ..."
 
 export JAVA_HOME="$BUILD_DIR/.jdk7"
 export PATH="$JAVA_HOME/bin:$PATH"

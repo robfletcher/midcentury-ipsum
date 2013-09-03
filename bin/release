@@ -9,8 +9,7 @@ cat <<EOF
 ---
 config_vars:
   JAVA_HOME: .jdk7
-  JAVA_OPTS: -Dfile.encoding=UTF-8 -server -Xmx512m -XX:+UseCompressedOops
-  MIDCENTURY_IPSUM_OPTS: -Dratpack.port=\$PORT
+  JAVA_OPTS: -Dfile.encoding=UTF-8 -server -Xmx512m -XX:+UseCompressedOops -Dratpack.port=\$PORT
 EOF
 
 if [ ! -f $BUILD_DIR/Procfile ]; then
