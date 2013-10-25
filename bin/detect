@@ -2,7 +2,7 @@
 # bin/use <build-dir>
 
 if [ -f $1/src/ratpack/ratpack.groovy ]; then
-   echo "Mid-Century Ipsum" && exit 0
+   echo "Ratpack" && exit 0
 else
   echo "no" && exit 1
 fi
