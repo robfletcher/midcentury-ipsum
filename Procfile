@@ -1,7 +1,7 @@
 ---
 addons:
 config_vars:
-  JAVA_HOME: ${HOME}/.jdk7
+  JAVA_HOME: /app/.jdk7
   JAVA_OPTS: -Dfile.encoding=UTF-8 -server -Xmx512m -XX:+UseCompressedOops
 default_process_types:
   web: build/install/midcentury-ipsum/bin/midcentury-ipsum
