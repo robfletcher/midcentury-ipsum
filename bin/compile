@@ -10,8 +10,6 @@ BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-echo "Working with cache [$CACHE_DIR] and build [$BUILD_DIR] directories..."
-
 #env variables
 JAVA_DIST="openjdk1.7.0_21"
 JDK7_URL="https://s3.amazonaws.com/heroku-jdk/${JAVA_DIST}.tar.gz"
@@ -23,17 +21,17 @@ cd "$BUILD_DIR"
 
 #jdk7
 if [ -d .jdk7 ]; then
-  echo ".jdk7 folder found, moving along."
+  echo "-----> .jdk7 folder found, moving along."
 
 else
-  echo -n ".jdk7 folder not found! "
+  echo -n "-----> .jdk7 folder not found! "
   if [[ -d "$CACHE_DIR/.jdk7" ]]; then
     echo -n "Copying jdk from cache to app... "
     cp -r "$CACHE_DIR/.jdk7" "$BUILD_DIR"
     echo "Done!"
 
   else
-    echo "-----> Installing ${JAVA_DIST} build (to .jdk7)....."
+    echo -n "-----> Installing ${JAVA_DIST} build (to .jdk7)....."
     mkdir "$BUILD_DIR/.jdk7"
     cd "$BUILD_DIR/.jdk7"
     curl --max-time 180 --location "$JDK7_URL" | tar xz
@@ -43,8 +41,6 @@ else
 fi
 
 cd $BUILD_DIR
-
-echo "Setting Java Home to $BUILD_DIR/.jdk7 ..."
 
 export JAVA_HOME="$BUILD_DIR/.jdk7"
 export PATH="$JAVA_HOME/bin:$PATH"
