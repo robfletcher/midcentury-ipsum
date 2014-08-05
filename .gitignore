@@ -6,9 +6,7 @@
 
 /build/
 
-/out/
+/.idea/
 *.iml
-*.ipr
-*.iws
 
 /src/ratpack/public/css/

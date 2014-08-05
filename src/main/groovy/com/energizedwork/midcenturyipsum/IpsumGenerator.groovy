@@ -1,7 +1,7 @@
 package com.energizedwork.midcenturyipsum
 
-public interface IpsumGenerator {
+interface IpsumGenerator {
 
-	Collection<String> paragraphs(int count)
+  Collection<String> paragraphs(int count)
 
 }

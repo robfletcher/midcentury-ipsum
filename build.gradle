@@ -5,18 +5,18 @@ buildscript {
 		maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
 	}
 	dependencies {
-		classpath "org.ratpack-framework:ratpack-gradle:0.9.0-SNAPSHOT"
+		classpath "io.ratpack:ratpack-gradle:0.9.7"
 		classpath "org.gradle.plugins:gradle-compass:1.0.9"
 	}
 }
 
 repositories {
-	maven { url "http://oss.jfrog.org/repo" }
-	mavenCentral()
-	maven { url "http://repo.springsource.org/repo" }
+  jcenter()
+  maven { url "http://oss.jfrog.org/repo" }
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots" } // for spock snapshot
 }
 
-apply plugin: "ratpack-groovy"
+apply plugin: "io.ratpack.ratpack-groovy"
 apply plugin: "compass"
 apply plugin: "idea"
 
@@ -44,8 +44,8 @@ idea {
 }
 
 dependencies {
-	springloaded "org.springsource.springloaded:springloaded-core:1.1.1"
-	testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+	springloaded "org.springsource.springloaded:springloaded-core:1.2.0.RELEASE"
+	testCompile "org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT"
 }
 
 run {
@@ -53,7 +53,7 @@ run {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = "1.8"
+	gradleVersion = "2.0"
 }
 
 installApp {
@@ -66,4 +66,4 @@ startScripts {
 	}
 }
 
-task stage(dependsOn: ['clean', 'installApp'], description: "Heroku uses this as default")
+task stage(dependsOn: ["clean", "installApp"], description: "Heroku uses this as default")

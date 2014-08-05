@@ -6,9 +6,9 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class IpsumGeneratorModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bind(IpsumGenerator).to(MidCenturyIpsumGenerator)
-    }
+  @Override
+  protected void configure() {
+    bind(IpsumGenerator).to(MidCenturyIpsumGenerator)
+  }
 
 }

@@ -1,14 +1,16 @@
-import com.energizedwork.midcenturyipsum.*
-import org.ratpackframework.groovy.templating.TemplatingModule
-import static org.ratpackframework.groovy.RatpackScript.ratpack
+import com.energizedwork.midcenturyipsum.IpsumGeneratorModule
+import com.energizedwork.midcenturyipsum.IpsumHandler
+import ratpack.groovy.templating.TemplatingModule
+
+import static ratpack.groovy.Groovy.ratpack
 
 ratpack {
-	modules {
-		register new IpsumGeneratorModule()
-		get(TemplatingModule).staticallyCompile = true
-	}
-	handlers {
-		get ":paras?", registry.get(IpsumHandler)
-		assets "public"
-	}
+  bindings {
+    add new IpsumGeneratorModule()
+    add new TemplatingModule(staticallyCompile: true)
+  }
+  handlers {
+    handler ":paras?", registry.get(IpsumHandler)
+    assets "public"
+  }
 }
