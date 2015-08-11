@@ -1,69 +1,87 @@
 buildscript {
-	repositories {
-		maven { url "http://oss.jfrog.org/repo" }
-		mavenCentral()
-		maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
-	}
-	dependencies {
-		classpath "io.ratpack:ratpack-gradle:0.9.7"
-		classpath "org.gradle.plugins:gradle-compass:1.0.9"
-	}
+  repositories {
+    jcenter()
+    maven { url "http://oss.jfrog.org/repo" }
+    maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
+  }
+  dependencies {
+    classpath "io.ratpack:ratpack-gradle:0.9.19"
+    classpath "com.github.jengelman.gradle.plugins:shadow:1.2.2"
+    classpath "se.transmode.gradle:gradle-docker:1.2"
+    classpath "com.github.robfletcher:compass-gradle-plugin:2.0.6"
+  }
 }
 
 repositories {
   jcenter()
   maven { url "http://oss.jfrog.org/repo" }
-  maven { url "https://oss.sonatype.org/content/repositories/snapshots" } // for spock snapshot
+  maven { url "http://repo.spring.io/repo" }
 }
 
 apply plugin: "io.ratpack.ratpack-groovy"
-apply plugin: "compass"
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "docker"
+apply plugin: "com.github.robfletcher.compass"
 apply plugin: "idea"
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
 compass {
-	cssDir = file("src/ratpack/public/css")
-	sassDir = file("src/main/sass")
-	imagesDir = file("src/ratpack/public/img")
-	relativeAssets = true
-	debugInfo = false
-	environment = "production"
+  cssDir = file("src/ratpack/public/css")
+  sassDir = file("src/main/sass")
+  imagesDir = file("src/ratpack/public/img")
+  relativeAssets = true
+  debugInfo = false
+  environment = "production"
 }
 
-processResources.inputs.files compileSass
-run.dependsOn watchSass
-clean.dependsOn cleanCompileSass
+processResources.inputs.files compassCompile
+run.dependsOn compassWatchStart
+run.finalizedBy compassWatchStop
+clean.dependsOn cleanCompassCompile
 
 idea {
-	project {
-		jdkName "1.7"
-		languageLevel "1.7"
-	}
+  project {
+    jdkName "1.8"
+    languageLevel "1.8"
+  }
 }
 
 dependencies {
-	springloaded "org.springsource.springloaded:springloaded-core:1.2.0.RELEASE"
-	testCompile "org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT"
+  springloaded "org.springframework:springloaded:1.2.3.RELEASE"
+  testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 }
 
 run {
-	systemProperty "ratpack.reloadable", "true"
+  systemProperty "ratpack.reloadable", "true"
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = "2.0"
+  gradleVersion = "2.6"
 }
 
 installApp {
-	from run.workingDir
+  from run.workingDir
 }
 
 startScripts {
-	doLast {
-		unixScript.text = unixScript.text.replace('DEFAULT_JVM_OPTS=""', 'DEFAULT_JVM_OPTS="-Dratpack.port=$PORT"')
-	}
+  doLast {
+    unixScript.text = unixScript.text.replace('DEFAULT_JVM_OPTS=""', 'DEFAULT_JVM_OPTS="-Dratpack.port=$PORT"')
+  }
 }
 
 task stage(dependsOn: ["clean", "installApp"], description: "Heroku uses this as default")
+
+task midcenturyIpsumDocker(type: Docker) {
+  dependsOn shadowJar
+  applicationName = "midcentury-ipsum"
+  tagVersion = "0.1"
+  dockerfile = project.file("Dockerfile")
+
+  doFirst {
+    addFile project.tasks.shadowJar.archivePath
+  }
+}
+
+build.dependsOn midcenturyIpsumDocker

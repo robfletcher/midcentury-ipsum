@@ -1,13 +1,12 @@
 package com.energizedwork.midcenturyipsum
 
-import ratpack.groovy.templating.Template
+import ratpack.groovy.template.TextTemplate
 import spock.lang.Specification
 import spock.lang.Unroll
-
 import static com.energizedwork.midcenturyipsum.IpsumHandler.DEFAULT_PARAGRAPHS
-import static io.netty.handler.codec.rtsp.RtspHeaders.Names.ACCEPT
-import static io.netty.handler.codec.rtsp.RtspHeaders.Names.CONTENT_TYPE
-import static ratpack.test.UnitTest.requestFixture
+import static io.netty.handler.codec.rtsp.RtspHeaderNames.ACCEPT
+import static io.netty.handler.codec.rtsp.RtspHeaderNames.CONTENT_TYPE
+import static ratpack.groovy.test.handling.GroovyRequestFixture.requestFixture
 
 @Unroll
 class IpsumHandlerSpec extends Specification {
@@ -64,9 +63,9 @@ class IpsumHandlerSpec extends Specification {
     }
 
     where:
-    acceptHeader       | contentType                | responseContent
-    "application/json" | "application/json"         | '["lorem ipsum"]'
-    "text/plain"       | "text/plain;charset=UTF-8" | "lorem ipsum"
+    acceptHeader       | contentType        | responseContent
+    "application/json" | "application/json" | '["lorem ipsum"]'
+    "text/plain"       | "text/plain"       | "lorem ipsum"
   }
 
   void "renders content type appropriate for accept header of text/html"() {
@@ -80,8 +79,8 @@ class IpsumHandlerSpec extends Specification {
     then:
     with(result) {
       status.code == 200
-      headers.get(CONTENT_TYPE) == "text/html;charset=UTF-8"
-      with(rendered(Template)) {
+      headers.get(CONTENT_TYPE) == "text/html"
+      with(rendered(TextTemplate)) {
         id == "index.html"
         model == [ipsum: "<p>lorem ipsum</p>", paras: 4]
       }

@@ -1,17 +1,17 @@
 package app
 
-import ratpack.groovy.test.LocalScriptApplicationUnderTest
-import ratpack.groovy.test.TestHttpClient
-import ratpack.groovy.test.TestHttpClients
-import ratpack.groovy.test.internal.DefaultTestHttpClient
+import groovy.json.JsonSlurper
+import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
+import ratpack.http.client.RequestSpec
+import ratpack.test.http.TestHttpClient
 import spock.lang.Specification
-
 import static com.energizedwork.midcenturyipsum.IpsumHandler.DEFAULT_PARAGRAPHS
 
 class FunctionalSpec extends Specification {
 
-  def aut = new LocalScriptApplicationUnderTest()
-  @Delegate TestHttpClient client = TestHttpClients.testHttpClient(aut)
+  def aut = new GroovyRatpackMainApplicationUnderTest()
+  @Delegate TestHttpClient client = testHttpClient(aut)
+  def json = new JsonSlurper()
 
   def setup() {
     client.resetRequest()
@@ -23,30 +23,34 @@ class FunctionalSpec extends Specification {
 
     then:
     response.statusCode == 200
-    response.header("Content-Type") == "text/plain;charset=UTF-8"
-    response.body.asString().findAll("\n").size() == (DEFAULT_PARAGRAPHS - 1) //Subtract one from the default as the final line in plain doesn't have a new line ending
+    response.headers.get("Content-Type") == "text/plain"
+    response.body.text.findAll("\n").size() == (DEFAULT_PARAGRAPHS - 1) //Subtract one from the default as the final line in plain doesn't have a new line ending
   }
 
   def "root default paragraphs text/html"() {
     when:
-    request.header("Accept", "text/html")
+    requestSpec { RequestSpec request ->
+      request.headers.add("Accept", "text/html")
+    }
     get()
 
     then:
     response.statusCode == 200
-    response.header("Content-Type") == "text/html;charset=UTF-8"
-    response.body.asString().findAll("<p>.*</p>").size() == DEFAULT_PARAGRAPHS
+    response.headers.get("Content-Type") == "text/html"
+    response.body.text.findAll("<p>.*</p>").size() == DEFAULT_PARAGRAPHS
   }
 
   def "root default paragraphs application/json"() {
     when:
-    request.header("Accept", "application/json")
+    requestSpec { RequestSpec request ->
+      request.headers.add("Accept", "application/json")
+    }
     get()
 
     then:
     response.statusCode == 200
-    response.header("Content-Type") == "application/json"
-    response.jsonPath().getList("").size() == DEFAULT_PARAGRAPHS
+    response.headers.get("Content-Type") == "application/json"
+    json.parseText(response.body.text).size() == DEFAULT_PARAGRAPHS
   }
 
   def "Bad Param"() {
@@ -59,22 +63,26 @@ class FunctionalSpec extends Specification {
 
   def "Change number of Paragraphs"() {
     when:
-    request.header("Accept", "application/json")
+    requestSpec { RequestSpec request ->
+      request.headers.add("Accept", "application/json")
+    }
     get("9")
 
     then:
     response.statusCode == 200
-    response.jsonPath().getList("").size() == 9
+    json.parseText(response.body.text).size() == 9
   }
 
   def "Test Max Paragraphs"() {
     when:
-    request.header("Accept", "application/json")
+    requestSpec { RequestSpec request ->
+      request.headers.add("Accept", "application/json")
+    }
     get("100")
 
     then:
     response.statusCode == 200
-    response.jsonPath().getList("").size() == 25
+    json.parseText(response.body.text).size() == 25
   }
 
   def cleanup() {
