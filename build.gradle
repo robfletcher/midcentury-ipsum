@@ -6,8 +6,6 @@ buildscript {
   }
   dependencies {
     classpath "io.ratpack:ratpack-gradle:0.9.19"
-    classpath "com.github.jengelman.gradle.plugins:shadow:1.2.2"
-    classpath "se.transmode.gradle:gradle-docker:1.2"
     classpath "com.github.robfletcher:compass-gradle-plugin:2.0.6"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230"
   }
@@ -15,14 +13,10 @@ buildscript {
 
 repositories {
   jcenter()
-  maven { url "http://oss.jfrog.org/repo" }
-  maven { url "http://repo.spring.io/repo" }
 }
 
 apply plugin: "kotlin"
 apply plugin: "io.ratpack.ratpack-groovy"
-apply plugin: "com.github.johnrengelman.shadow"
-apply plugin: "docker"
 apply plugin: "com.github.robfletcher.compass"
 apply plugin: "idea"
 
@@ -77,16 +71,3 @@ startScripts {
 }
 
 task stage(dependsOn: ["clean", "installApp"], description: "Heroku uses this as default")
-
-task midcenturyIpsumDocker(type: Docker) {
-  dependsOn shadowJar
-  applicationName = "midcentury-ipsum"
-  tagVersion = "0.1"
-  dockerfile = project.file("Dockerfile")
-
-  doFirst {
-    addFile project.tasks.shadowJar.archivePath
-  }
-}
-
-build.dependsOn midcenturyIpsumDocker
