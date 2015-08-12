@@ -17,12 +17,14 @@ carport
 cocktail
 copasetic
 creative
+Danish modern
 Dieter Rams
 diner
 dingbat
 doo-wop
 drive-in
 Eames chair
+Eichler
 executive
 floating staircase
 Formica
@@ -50,6 +52,7 @@ Palm Springs
 Pan Am
 pocket square
 populuxe
+ranch home
 ratpack
 ray gun
 ring-a-ding
@@ -68,6 +71,7 @@ starburst
 suburban
 swingin'
 tailfin
+teak
 television
 tiki
 Tomorrowland

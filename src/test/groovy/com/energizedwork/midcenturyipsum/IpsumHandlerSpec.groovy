@@ -18,7 +18,7 @@ class IpsumHandlerSpec extends Specification {
     def handler = new IpsumHandler(generator)
 
     when:
-    def result = requestFixture().handle(handler)
+    def result = requestFixture().pathBinding(paras: "").handle(handler)
 
     then:
     1 * generator.paragraphs(DEFAULT_PARAGRAPHS) >> ["lorem ipsum"]

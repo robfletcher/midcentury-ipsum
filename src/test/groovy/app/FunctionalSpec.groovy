@@ -1,15 +1,17 @@
 package app
 
+import com.energizedwork.midcenturyipsum.MidcenturyipsumPackage
 import groovy.json.JsonSlurper
 import ratpack.groovy.test.GroovyRatpackMainApplicationUnderTest
 import ratpack.http.client.RequestSpec
+import ratpack.test.MainClassApplicationUnderTest
 import ratpack.test.http.TestHttpClient
 import spock.lang.Specification
 import static com.energizedwork.midcenturyipsum.IpsumHandler.DEFAULT_PARAGRAPHS
 
 class FunctionalSpec extends Specification {
 
-  def aut = new GroovyRatpackMainApplicationUnderTest()
+  def aut = new MainClassApplicationUnderTest(MidcenturyipsumPackage)
   @Delegate TestHttpClient client = testHttpClient(aut)
   def json = new JsonSlurper()
 

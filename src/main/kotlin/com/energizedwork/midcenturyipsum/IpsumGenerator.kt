@@ -2,6 +2,6 @@ package com.energizedwork.midcenturyipsum
 
 interface IpsumGenerator {
 
-  Collection<String> paragraphs(int count)
+  fun paragraphs(count: Int): Collection<String>
 
 }
