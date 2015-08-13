@@ -37,9 +37,8 @@ class IpsumHandler inject constructor(private val generator: IpsumGenerator) : H
     }
   }
 
-}
-
-fun PathTokens.asInt(key: String, default: Int): Int {
-  val value: String? = this.get(key)
-  return if (value.isNullOrEmpty()) default else value!!.toInt()
+  fun PathTokens.asInt(key: String, default: Int): Int {
+    val value: String? = this.get(key)
+    return if (value.isNullOrEmpty()) default else value!!.toInt()
+  }
 }
