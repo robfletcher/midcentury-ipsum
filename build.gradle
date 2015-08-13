@@ -34,7 +34,14 @@ assets {
 idea {
   project {
     jdkName "1.8"
-    languageLevel "1.8"
+    languageLevel "JDK_1_8"
+    vcs = "Git"
+    ipr {
+      withXml {
+        def node = it.asNode()
+        node.append(new XmlParser().parse(file("gradle/idea/codeStyleSettings.xml")))
+      }
+    }
   }
 }
 

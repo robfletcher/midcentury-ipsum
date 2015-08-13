@@ -2,11 +2,14 @@
 
 /.gradle/
 /.sass-cache/
+/.sass-work/
 /.jruby/
+/.jruby-container/
+/.profile.d/
 
 /build/
 
 /.idea/
+*.ipr
 *.iml
-
-/src/ratpack/public/css/
+*.iws
