@@ -96,7 +96,7 @@ class EndToEndSpecs : Spek() {
       }
 
       on("a request for too many paragraphs") {
-        val response = client.accept("application/json").get("26")
+        val response = client.accept("application/json").get("${MAX_PARAGRAPHS + 1}")
 
         it("should return OK") {
           assertEquals(OK, response.getStatusCode())
@@ -110,17 +110,11 @@ class EndToEndSpecs : Spek() {
   }
 
   fun ReceivedResponse.getContentType(): String = getHeaders().get(CONTENT_TYPE)
+  fun ReceivedResponse.asJson(): JsonNode = ObjectMapper().readTree(getBody().getBytes())
+  fun ReceivedResponse.asText(): String = getBody().getText()
 
   fun TestHttpClient.accept(mimeType: String): TestHttpClient = requestSpec {
     it.getHeaders().add(ACCEPT, mimeType)
-  }
-
-  fun ReceivedResponse.asJson(): JsonNode {
-    return ObjectMapper().readTree(getBody().getBytes())
-  }
-
-  fun ReceivedResponse.asText(): String {
-    return getBody().getText()
   }
 
   fun String.countMatches(regex: String): Int = regex.toRegex().matchAll(this).count()
