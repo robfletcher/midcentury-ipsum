@@ -9,20 +9,19 @@ class MidCenturyIpsumGenerator : IpsumGenerator {
     public val WORDS_PER_SENTENCE: IntRange = 3..9
 
     private val WORD_LIST: List<String> = javaClass<MidCenturyIpsumGenerator>()
-        .getResource("corpus.txt")
-        .readText()
-        .splitBy("\n")
-    private val PUNCTUATION: List<String> = arrayListOf(".", ".", "?", "!")
+      .getResource("corpus.txt")
+      .readText()
+      .splitBy("\n")
+    private val PUNCTUATION: List<String> = listOf(".", ".", "?", "!")
+    private val randomizer = Random()
   }
-
-  private val randomizer = Random()
 
   override fun paragraphs(count: Int): Collection<String> {
     return (1..count).map { paragraph() }
   }
 
   fun paragraph(): String {
-    return sentences(randomInt(SENTENCES_PER_PARAGRAPH))
+    return sentences(SENTENCES_PER_PARAGRAPH.random())
   }
 
   fun sentences(count: Int): String {
@@ -30,47 +29,43 @@ class MidCenturyIpsumGenerator : IpsumGenerator {
   }
 
   fun sentence(): String {
-    val word = randomWord().capitalize()
+    val word = word().capitalize()
     val buffer = StringBuilder(word).append(" ")
 
     if (randomizer.nextBoolean()) {
-      for (i in 1..randomInt(1..2)) {
+      (1..2).random().repeat {
         buffer.append(sentenceFragment()).append(", ")
       }
     }
 
-    buffer.append(sentenceFragment()).append(randomPunctuation())
+    buffer.append(sentenceFragment()).append(punctuation())
     return buffer.toString()
   }
 
   fun sentenceFragment(): String {
-    return words(randomInt(WORDS_PER_SENTENCE))
+    return words(WORDS_PER_SENTENCE.random())
   }
 
   fun words(count: Int): String {
-    val words: MutableList<String> = arrayListOf()
-    while (words.size() < count) {
-      val word = randomWord()
-      if (!words.contains(word)) {
-        words.add(word)
-      }
+    return sequence { word() } distinctBy { it } take(count) join(" ")
+  }
+
+  fun punctuation(): String {
+    return PUNCTUATION.random()
+  }
+
+  fun word(): String {
+    return WORD_LIST.random().toLowerCase()
+  }
+
+  fun Int.repeat(fn: () -> Unit): Unit {
+    for (i in 1..this) {
+      fn()
     }
-    return words.join(" ")
   }
 
-  fun randomPunctuation(): String {
-    return randomElement(PUNCTUATION)
-  }
+  fun List<Any?>.range(): IntRange = 0..size()
+  fun <T> List<T>.random(): T = get(range().random())
 
-  fun randomWord(): String {
-    return randomElement(WORD_LIST).toLowerCase()
-  }
-
-  fun randomElement(strings: List<String>): String {
-    return strings[randomInt(0..strings.size())]
-  }
-
-  fun randomInt(range: IntRange): Int {
-    return randomizer.nextInt(range.end - range.start) + range.start
-  }
+  fun IntRange.random(): Int = randomizer.nextInt(end - start) + start
 }
