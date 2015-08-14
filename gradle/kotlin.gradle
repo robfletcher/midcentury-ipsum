@@ -2,8 +2,10 @@ apply plugin: "kotlin"
 
 repositories {
   jcenter()
+  maven { url "http://repository.jetbrains.com/all" }
 }
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:0.12.1230"
+  testCompile "org.jetbrains.spek:spek:0.1-SNAPSHOT"
 }
