@@ -9,6 +9,11 @@ import ratpack.test.http.TestHttpClient.testHttpClient
 import kotlin.test.assertEquals
 
 class EndToEndSpecs : Spek() {
+  companion object {
+    val OK = 200
+    val BAD_REQUEST = 400
+  }
+
   init {
     given("the application is running") {
       val app = MainFunctionApplicationUnderTest(::main)
@@ -20,10 +25,10 @@ class EndToEndSpecs : Spek() {
         val response = client.get()
 
         it("should return OK") {
-          assertEquals(200, response.getStatusCode())
+          assertEquals(OK, response.getStatusCode())
         }
 
-        it("should return a plain text response") {
+        it("should return plain text") {
           assertEquals("text/plain", response.getContentType())
         }
 
@@ -36,10 +41,10 @@ class EndToEndSpecs : Spek() {
         val response = client.accept("text/html").get()
 
         it("should return OK") {
-          assertEquals(200, response.getStatusCode())
+          assertEquals(OK, response.getStatusCode())
         }
 
-        it("should return an HTML response") {
+        it("should return HTML") {
           assertEquals("text/html", response.getContentType())
         }
 
@@ -52,10 +57,10 @@ class EndToEndSpecs : Spek() {
         val response = client.accept("application/json").get()
 
         it("should return OK") {
-          assertEquals(200, response.getStatusCode())
+          assertEquals(OK, response.getStatusCode())
         }
 
-        it("should return an HTML response") {
+        it("should return JSON") {
           assertEquals("application/json", response.getContentType())
         }
 
@@ -68,19 +73,21 @@ class EndToEndSpecs : Spek() {
         val response = client.get("3daft")
 
         it("should return Bad Request") {
-          assertEquals(400, response.getStatusCode())
+          assertEquals(BAD_REQUEST, response.getStatusCode())
         }
       }
 
-      on("a request with a specified number of paragraphs") {
-        val response = client.accept("application/json").get("9")
+      for (i in 1..10) {
+        on("a request for $i paragraphs") {
+          val response = client.accept("application/json").get("$i")
 
-        it("should return OK") {
-          assertEquals(200, response.getStatusCode())
-        }
+          it("should return OK") {
+            assertEquals(OK, response.getStatusCode())
+          }
 
-        it("should return the requested number of paragraphs") {
-          assertEquals(9, response.asJson().size())
+          it("should return $i paragraphs") {
+            assertEquals(i, response.asJson().size())
+          }
         }
       }
 
@@ -88,7 +95,7 @@ class EndToEndSpecs : Spek() {
         val response = client.accept("application/json").get("26")
 
         it("should return OK") {
-          assertEquals(200, response.getStatusCode())
+          assertEquals(OK, response.getStatusCode())
         }
 
         it("should return the maximum number of paragraphs") {
