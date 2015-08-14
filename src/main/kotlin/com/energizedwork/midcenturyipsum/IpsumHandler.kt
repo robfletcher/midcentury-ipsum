@@ -12,9 +12,9 @@ class IpsumHandler inject constructor(private val generator: IpsumGenerator) : H
 
   override fun handle(context: Context) {
     try {
-      val paras = min(context.getPathTokens().asInt("paras",
-                                                    DEFAULT_PARAGRAPHS),
-                      MAX_PARAGRAPHS)
+      val paras = min(
+        context.getPathTokens().asInt("paras", DEFAULT_PARAGRAPHS),
+        MAX_PARAGRAPHS)
       val ipsum = generator.paragraphs(paras)
 
       context.byContent {
@@ -24,8 +24,8 @@ class IpsumHandler inject constructor(private val generator: IpsumGenerator) : H
           context.getResponse().send(toJson(ipsum))
         } html {
           context.render(
-            handlebarsTemplate(mapOf("ipsum" to ipsum, "paras" to paras),
-                               "index.html"))
+            handlebarsTemplate("index.html",
+                               mapOf("ipsum" to ipsum, "paras" to paras)))
         }
       }
     } catch (ignored: NumberFormatException) {
