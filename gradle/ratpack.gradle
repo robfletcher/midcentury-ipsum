@@ -1,0 +1,16 @@
+apply plugin: "io.ratpack.ratpack-groovy"
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  springloaded "org.springframework:springloaded:1.2.3.RELEASE"
+}
+
+run {
+  systemProperty "ratpack.reloadable", "true"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

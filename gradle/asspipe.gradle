@@ -1,0 +1,14 @@
+apply plugin: "asset-pipeline"
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile "com.bertramlabs.plugins:ratpack-asset-pipeline:2.4.3"
+  runtime "com.bertramlabs.plugins:sass-asset-pipeline:2.3.1"
+}
+
+assets {
+  skipNonDigests = true
+}

@@ -1,74 +1,21 @@
 buildscript {
   repositories {
     jcenter()
-    maven { url "http://oss.jfrog.org/repo" }
-    maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
   }
   dependencies {
-    classpath "io.ratpack:ratpack-gradle:0.9.19"
-    classpath "com.github.robfletcher:compass-gradle-plugin:2.0.6"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230"
-    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.4.3"
+    classpath "io.ratpack:ratpack-gradle:0.9.19"
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0"
     classpath "com.bertramlabs.plugins:sass-asset-pipeline:2.3.1"
   }
 }
 
-repositories {
-  jcenter()
-}
-
-apply plugin: "kotlin"
-apply plugin: "io.ratpack.ratpack-groovy"
-apply plugin: "asset-pipeline"
-apply plugin: "idea"
-
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+apply from: "${rootDir}/gradle/kotlin.gradle"
+apply from: "${rootDir}/gradle/ratpack.gradle"
+apply from: "${rootDir}/gradle/asspipe.gradle"
+apply from: "${rootDir}/gradle/spock.gradle"
+apply from: "${rootDir}/gradle/heroku.gradle"
+apply from: "${rootDir}/gradle/wrapper.gradle"
+apply from: "${rootDir}/gradle/idea.gradle"
 
 mainClassName = "com.energizedwork.midcenturyipsum.MidcenturyipsumPackage"
-
-assets {
-  skipNonDigests = true
-}
-
-idea {
-  project {
-    jdkName "1.8"
-    languageLevel "JDK_1_8"
-    vcs = "Git"
-    ipr {
-      withXml {
-        def node = it.asNode()
-        node.append(new XmlParser().parse(file("gradle/idea/codeStyleSettings.xml")))
-      }
-    }
-  }
-}
-
-dependencies {
-  springloaded "org.springframework:springloaded:1.2.3.RELEASE"
-  compile "org.jetbrains.kotlin:kotlin-stdlib:0.12.1230"
-  compile "com.bertramlabs.plugins:ratpack-asset-pipeline:2.4.3"
-  runtime "com.bertramlabs.plugins:sass-asset-pipeline:2.3.1"
-  testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
-}
-
-run {
-  systemProperty "ratpack.reloadable", "true"
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = "2.6"
-}
-
-installApp {
-  from run.workingDir
-}
-
-startScripts {
-  doLast {
-    unixScript.text = unixScript.text.replace('DEFAULT_JVM_OPTS=""', 'DEFAULT_JVM_OPTS="-Dratpack.port=$PORT"')
-  }
-}
-
-task stage(dependsOn: ["clean", "installApp"], description: "Heroku uses this as default")
