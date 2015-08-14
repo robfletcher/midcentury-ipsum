@@ -8,7 +8,9 @@ idea {
     ipr {
       withXml {
         def node = it.asNode()
-        node.append(new XmlParser().parse(file("${rootDir}/gradle/idea/codeStyleSettings.xml")))
+        def parser = new XmlParser()
+        node.append(parser.parse(file("${rootDir}/gradle/idea/codeStyleSettings.xml")))
+        node.append(parser.parse(file("${rootDir}/gradle/idea/gradleSettings.xml")))
       }
     }
   }
