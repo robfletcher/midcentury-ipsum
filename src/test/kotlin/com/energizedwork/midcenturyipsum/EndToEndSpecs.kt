@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.netty.handler.codec.rtsp.RtspHeaderNames.ACCEPT
 import io.netty.handler.codec.rtsp.RtspHeaderNames.CONTENT_TYPE
+import jodd.jerry.Jerry
+import jodd.jerry.Jerry.jerry
 import org.jetbrains.spek.api.Spek
 import ratpack.http.client.ReceivedResponse
 import ratpack.test.http.TestHttpClient
@@ -53,7 +55,7 @@ class EndToEndSpecs : Spek() {
 
         it("should return $DEFAULT_PARAGRAPHS paragraphs") {
           assertEquals(DEFAULT_PARAGRAPHS,
-                       response.asText().countMatches("<p>.*</p>"))
+                       response.asDocument().find("#ipsum p").size())
         }
       }
 
@@ -112,10 +114,9 @@ class EndToEndSpecs : Spek() {
   fun ReceivedResponse.getContentType(): String = getHeaders().get(CONTENT_TYPE)
   fun ReceivedResponse.asJson(): JsonNode = ObjectMapper().readTree(getBody().getBytes())
   fun ReceivedResponse.asText(): String = getBody().getText()
+  fun ReceivedResponse.asDocument(): Jerry = jerry(getBody().getText())
 
   fun TestHttpClient.accept(mimeType: String): TestHttpClient = requestSpec {
     it.getHeaders().add(ACCEPT, mimeType)
   }
-
-  fun String.countMatches(regex: String): Int = regex.toRegex().matchAll(this).count()
 }

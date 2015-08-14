@@ -1,8 +1,8 @@
 package com.energizedwork.midcenturyipsum
 
 import asset.pipeline.ratpack.AssetPipelineModule
-import ratpack.groovy.template.TextTemplateModule
 import ratpack.guice.Guice
+import ratpack.handlebars.HandlebarsModule
 import ratpack.handling.Chain
 import ratpack.server.BaseDir
 import ratpack.server.RatpackServer
@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
       .registry(Guice.registry { bindingSpec ->
         bindingSpec
           .module(javaClass<IpsumGeneratorModule>())
-          .module(javaClass<TextTemplateModule>())
+          .module(javaClass<HandlebarsModule>())
           .module(javaClass<AssetPipelineModule>())
       })
       .handlers { chain: Chain ->

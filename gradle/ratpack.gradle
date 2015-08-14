@@ -1,4 +1,4 @@
-apply plugin: "io.ratpack.ratpack-groovy"
+apply plugin: "io.ratpack.ratpack-java"
 
 repositories {
   jcenter()
@@ -6,6 +6,7 @@ repositories {
 
 dependencies {
   springloaded "org.springframework:springloaded:1.2.3.RELEASE"
+  compile "io.ratpack:ratpack-handlebars:0.9.19"
 }
 
 run {

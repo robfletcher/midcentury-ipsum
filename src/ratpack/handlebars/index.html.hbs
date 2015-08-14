@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Mid-Century Ipsum</title>
+    <meta name="description" content="Mid-Century Ipsum: Swingin' filler text for your jet-age web page.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="assets/mcm.css">
+    <script src="assets/modernizr.min.js"></script>
+  </head>
+  <body>
+    <div class="header-container">
+      <header id="page-header">
+        <h1><span class="word">Mid-Century</span><span class="word">Ipsum</span></h1>
+        <p class="tagline">Swingin' filler text for your jet-age web page.</p>
+      </header>
+    </div>
+
+    <section id="customize-form">
+      <label>Hit me with <input type="number" min="1" max="25" name="paras" value="{{paras}}"> paragraphs, daddy-o!</label>
+    </section>
+
+    <article id="ipsum">
+      {{#each ipsum}}
+        <p>{{this}}</p>
+      {{/each}}
+    </article>
+
+    <footer id="page-footer">
+      <p>Built by <a href="http://twitter.com/rfletcherEW">Rob Fletcher</a></p>
+      <p>with <a href="http://ratpack-framework.org/">Ratpack</a></p>
+      <p>Source code available on <a href="http://git.io/midcentury-ipsum">GitHub</a></p>
+    </footer>
+
+    <script src="assets/zepto.min.js"></script>
+    <script src="assets/midcentury-ipsum.js"></script>
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-42759275-1','auto');ga('send','pageview');
+    </script>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 package com.energizedwork.midcenturyipsum
 
 import groovy.json.JsonOutput.toJson
-import ratpack.groovy.Groovy.groovyTemplate
+import ratpack.handlebars.Template.handlebarsTemplate
 import ratpack.handling.Context
 import ratpack.handling.Handler
 import ratpack.path.PathTokens
@@ -12,7 +12,9 @@ class IpsumHandler inject constructor(private val generator: IpsumGenerator) : H
 
   override fun handle(context: Context) {
     try {
-      val paras = min(context.getPathTokens().asInt("paras", DEFAULT_PARAGRAPHS), MAX_PARAGRAPHS)
+      val paras = min(context.getPathTokens().asInt("paras",
+                                                    DEFAULT_PARAGRAPHS),
+                      MAX_PARAGRAPHS)
       val ipsum = generator.paragraphs(paras)
 
       context.byContent {
@@ -21,10 +23,9 @@ class IpsumHandler inject constructor(private val generator: IpsumGenerator) : H
         } json {
           context.getResponse().send(toJson(ipsum))
         } html {
-          context.render(groovyTemplate(mapOf(
-            "ipsum" to ipsum.map { "<p>$it</p>" }.join(""),
-            "paras" to paras
-          ), "index.html"))
+          context.render(
+            handlebarsTemplate(mapOf("ipsum" to ipsum, "paras" to paras),
+                               "index.html"))
         }
       }
     } catch (ignored: NumberFormatException) {

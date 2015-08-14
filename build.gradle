@@ -19,3 +19,7 @@ apply from: "${rootDir}/gradle/wrapper.gradle"
 apply from: "${rootDir}/gradle/idea.gradle"
 
 mainClassName = "com.energizedwork.midcenturyipsum.MidcenturyipsumPackage"
+
+dependencies {
+  testCompile "org.jodd:jodd-lagarto:3.6.6"
+}
