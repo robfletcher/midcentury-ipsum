@@ -2,6 +2,8 @@ package com.energizedwork.midcenturyipsum
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.netty.handler.codec.rtsp.RtspHeaderNames.ACCEPT
+import io.netty.handler.codec.rtsp.RtspHeaderNames.CONTENT_TYPE
 import org.jetbrains.spek.api.Spek
 import ratpack.http.client.ReceivedResponse
 import ratpack.test.http.TestHttpClient
@@ -32,8 +34,9 @@ class EndToEndSpecs : Spek() {
           assertEquals("text/plain", response.getContentType())
         }
 
-        it("should return 4 paragraphs") {
-          assertEquals(4, response.asText().splitBy("\n").size())
+        it("should return $DEFAULT_PARAGRAPHS paragraphs") {
+          assertEquals(DEFAULT_PARAGRAPHS,
+                       response.asText().splitBy("\n").size())
         }
       }
 
@@ -48,8 +51,9 @@ class EndToEndSpecs : Spek() {
           assertEquals("text/html", response.getContentType())
         }
 
-        it("should return 4 paragraphs") {
-          assertEquals(4, response.asText().countMatches("<p>.*</p>"))
+        it("should return $DEFAULT_PARAGRAPHS paragraphs") {
+          assertEquals(DEFAULT_PARAGRAPHS,
+                       response.asText().countMatches("<p>.*</p>"))
         }
       }
 
@@ -64,8 +68,8 @@ class EndToEndSpecs : Spek() {
           assertEquals("application/json", response.getContentType())
         }
 
-        it("should return 4 paragraphs") {
-          assertEquals(4, response.asJson().size())
+        it("should return $DEFAULT_PARAGRAPHS paragraphs") {
+          assertEquals(DEFAULT_PARAGRAPHS, response.asJson().size())
         }
       }
 
@@ -98,17 +102,17 @@ class EndToEndSpecs : Spek() {
           assertEquals(OK, response.getStatusCode())
         }
 
-        it("should return the maximum number of paragraphs") {
-          assertEquals(25, response.asJson().size())
+        it("should return $MAX_PARAGRAPHS paragraphs") {
+          assertEquals(MAX_PARAGRAPHS, response.asJson().size())
         }
       }
     }
   }
 
-  fun ReceivedResponse.getContentType(): String = getHeaders().get("Content-Type")
+  fun ReceivedResponse.getContentType(): String = getHeaders().get(CONTENT_TYPE)
 
   fun TestHttpClient.accept(mimeType: String): TestHttpClient = requestSpec {
-    it.getHeaders().add("Accept", mimeType)
+    it.getHeaders().add(ACCEPT, mimeType)
   }
 
   fun ReceivedResponse.asJson(): JsonNode {

@@ -10,11 +10,6 @@ import javax.inject.Inject as inject
 
 class IpsumHandler inject constructor(private val generator: IpsumGenerator) : Handler {
 
-  companion object {
-    val DEFAULT_PARAGRAPHS: Int = 4
-    val MAX_PARAGRAPHS: Int = 25
-  }
-
   override fun handle(context: Context) {
     try {
       val paras = min(context.getPathTokens().asInt("paras", DEFAULT_PARAGRAPHS), MAX_PARAGRAPHS)

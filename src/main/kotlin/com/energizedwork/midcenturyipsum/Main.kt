@@ -7,6 +7,9 @@ import ratpack.handling.Chain
 import ratpack.server.BaseDir
 import ratpack.server.RatpackServer
 
+val DEFAULT_PARAGRAPHS: Int = 4
+val MAX_PARAGRAPHS: Int = 25
+
 fun main(args: Array<String>) {
   RatpackServer.start { server ->
     server

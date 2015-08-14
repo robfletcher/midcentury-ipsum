@@ -3,7 +3,7 @@ package com.energizedwork.midcenturyipsum
 import ratpack.groovy.template.TextTemplate
 import spock.lang.Specification
 import spock.lang.Unroll
-import static com.energizedwork.midcenturyipsum.IpsumHandler.DEFAULT_PARAGRAPHS
+import static com.energizedwork.midcenturyipsum.MidcenturyipsumPackage.DEFAULT_PARAGRAPHS
 import static io.netty.handler.codec.rtsp.RtspHeaderNames.ACCEPT
 import static io.netty.handler.codec.rtsp.RtspHeaderNames.CONTENT_TYPE
 import static ratpack.groovy.test.handling.GroovyRequestFixture.requestFixture
@@ -13,7 +13,7 @@ class IpsumHandlerSpec extends Specification {
 
   def generator = Mock(IpsumGenerator)
 
-  void "by default renders 4 paragraphs"() {
+  def "by default renders 4 paragraphs"() {
     given:
     def handler = new IpsumHandler(generator)
 
@@ -30,7 +30,7 @@ class IpsumHandlerSpec extends Specification {
     }
   }
 
-  void "renders specified number of paragraphs"() {
+  def "renders specified number of paragraphs"() {
     given:
     def handler = new IpsumHandler(generator)
 
@@ -47,7 +47,7 @@ class IpsumHandlerSpec extends Specification {
     }
   }
 
-  void "renders content type appropriate for accept header of #acceptHeader"() {
+  def "renders content type appropriate for accept header of #acceptHeader"() {
     given:
     generator.paragraphs(_) >> ["lorem ipsum"]
     def handler = new IpsumHandler(generator)
@@ -68,7 +68,7 @@ class IpsumHandlerSpec extends Specification {
     "text/plain"       | "text/plain"       | "lorem ipsum"
   }
 
-  void "renders content type appropriate for accept header of text/html"() {
+  def "renders content type appropriate for accept header of text/html"() {
     given:
     generator.paragraphs(_) >> ["lorem ipsum"]
     def handler = new IpsumHandler(generator)

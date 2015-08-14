@@ -5,15 +5,14 @@ import java.util.Random
 class MidCenturyIpsumGenerator : IpsumGenerator {
 
   companion object {
-    public val SENTENCES_PER_PARAGRAPH: IntRange = 2..8
-    public val WORDS_PER_SENTENCE: IntRange = 3..9
-
-    private val WORD_LIST: List<String> = javaClass<MidCenturyIpsumGenerator>()
+    val SENTENCES_PER_PARAGRAPH: IntRange = 2..8
+    val WORDS_PER_SENTENCE: IntRange = 3..9
+    val WORD_LIST: List<String> = javaClass<MidCenturyIpsumGenerator>()
       .getResource("corpus.txt")
       .readText()
       .splitBy("\n")
-    private val PUNCTUATION: List<String> = listOf(".", ".", "?", "!")
-    private val randomizer = Random()
+    val PUNCTUATION: List<String> = listOf(".", ".", "?", "!")
+    val randomizer = Random()
   }
 
   override fun paragraphs(count: Int): Collection<String> {
