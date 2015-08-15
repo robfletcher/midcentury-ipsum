@@ -1,0 +1,161 @@
+@default-transition-duration: 0.25s;
+
+@strict-normalize: false;
+@base-font-family: serif;
+@base-font-size: 16px;
+@content-width: 768px;
+@page-gutter: 1rem;
+@tagline-font-size: 20px;
+@ipsum-font-size: 20px;
+
+@serif-font-stack: "Cardo", Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+@sans-font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@display-font-stack: "Playfair Display", "Bodoni MT", Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;
+@mono-font-stack: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+@header-font: @display-font-stack;
+@tagline-font: @mono-font-stack;
+@form-font: @sans-font-stack;
+@body-font: @serif-font-stack;
+@footer-font: @mono-font-stack;
+
+@background-image-width: 768px;
+@background-image-height: 511px;
+
+@import (less) "_normalize.css";
+@import (less) "_layout.less";
+@import (less) "_colorscheme.less";
+@import (less) "_breakpoints.less";
+
+body {
+  background-color: @body-background;
+  color: @contrasted-dark-default;
+
+  background-image: url("../images/dino.png");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  .if-width-at-least(@background-image-width, { background-size: contain; });
+
+  opacity: 0;
+  transition: opacity, 0.2s;
+  
+  .wf-active &, .wf-inactive & {
+    opacity: 1;
+  }
+}
+
+.header-container {
+  background-color: @grey;
+  color: @contrasted-dark-default;
+}
+
+#page-header {
+  @header-font-size: @base-font-size * 4.5;
+  padding-top: 1em / 3;
+  padding-bottom: 1em / 3;
+
+  h1 {
+    font-family: @header-font;
+    font-weight: 700;
+    font-style: italic;
+    font-size: @header-font-size;
+    line-height: 1;
+    text-transform: lowercase;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    .word {
+      display: block;
+      &:first-child {
+        font-weight: 900;
+        font-style: normal;
+      }
+    }
+  }
+
+  .tagline {
+    font-size: 1.25em;
+    line-height: 1.2;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: @tagline-font;
+    font-weight: 400;
+    font-style: normal;
+    text-align: right;
+  }
+
+  .if-width-at-least(640px, { @header-font-size: @base-font-size * 6; padding-top: 0.25em; padding-bottom: 0.25em;
+
+    h1 {
+      font-size: @header-font-size;
+    } });
+}
+
+#customize-form {
+  display: none;
+  font-family: @form-font;
+  text-align: center;
+
+  .js & {
+    display: block;
+  }
+
+  label {
+    display: block;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    padding: 0;
+  }
+
+  input {
+    font-family: @form-font;
+    width: 2.5em;
+  }
+}
+
+#ipsum {
+  font-family: @body-font;
+  padding-bottom: @background-image-height / 2;
+  font-size: 1.25em;
+  line-height: 1.2;
+}
+
+#page-footer {
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  font-family: @footer-font;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-right: -0.25em;
+  .if-width-at-least(480px, {
+    letter-spacing: 0.5em;
+    margin-right: -0.5em; });
+
+  text-align: right;
+  background-color: @footer-background;
+  color: @contrasted-light-default;
+
+  p {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    padding: 0;
+  }
+
+  a {
+    color: @footer-link-color;
+    text-decoration: none;
+    margin-left: -0.25em;
+    padding-left: 0.25em;
+    .if-width-at-least(480px, {
+      margin-left: -0.5em;
+      padding-left: 0.5em; });
+    transition: all 0.25s;
+
+    &:hover, &:focus {
+      background-color: @footer-link-color;
+      color: @footer-background;
+    }
+  }
+}

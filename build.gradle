@@ -6,7 +6,7 @@ buildscript {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.1230"
     classpath "io.ratpack:ratpack-gradle:0.9.19"
     classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0"
-    classpath "com.bertramlabs.plugins:sass-asset-pipeline:2.3.1"
+    classpath "com.bertramlabs.plugins:less-asset-pipeline:2.3.0"
   }
 }
 
