@@ -1,7 +1,3 @@
-installApp {
-  from run.workingDir
-}
-
 startScripts {
   doLast {
     unixScript.text = unixScript.text.replace('DEFAULT_JVM_OPTS=""', 'DEFAULT_JVM_OPTS="-Dratpack.port=$PORT"')
