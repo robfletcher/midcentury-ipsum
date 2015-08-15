@@ -5,6 +5,7 @@
 /.sass-work/
 /.jruby/
 /.jruby-container/
+.asscache
 
 /build/
 

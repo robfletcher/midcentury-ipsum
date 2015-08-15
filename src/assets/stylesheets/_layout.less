@@ -1,11 +1,10 @@
-@include
-establish-baseline
-(
-)
-;
+html {
+  font-size: @base-font-size;
+  line-height: @base-line-height;
+}
 
 *, *:before, *:after {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
 }
 
 .content-width() {
