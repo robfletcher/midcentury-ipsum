@@ -23,10 +23,7 @@ fun main(args: Array<String>) {
           .module(javaClass<AssetPipelineModule>())
       })
       .handlers { chain: Chain ->
-        val ipsumGenerator = chain
-          .getRegistry()
-          .get(javaClass<IpsumGenerator>())
-        chain.get(":paras?", IpsumHandler(ipsumGenerator))
+        chain.get(":paras?", javaClass<IpsumHandler>())
       }
   }
 }
