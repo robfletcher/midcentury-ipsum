@@ -39,7 +39,7 @@ body {
 
   opacity: 0;
   transition: opacity, 0.2s;
-  
+
   .wf-active &, .wf-inactive & {
     opacity: 1;
   }
@@ -87,11 +87,9 @@ body {
     text-align: right;
   }
 
-  .if-width-at-least(640px, { @header-font-size: @base-font-size * 6; padding-top: 0.25em; padding-bottom: 0.25em;
-
-    h1 {
-      font-size: @header-font-size;
-    } });
+  .if-width-at-least(640px, { @header-font-size: @base-font-size * 6; padding-top: 0.25em; padding-bottom: 0.25em; h1 {
+    font-size: @header-font-size;
+  } });
 }
 
 #customize-form {
@@ -130,9 +128,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.25em;
   margin-right: -0.25em;
-  .if-width-at-least(480px, {
-    letter-spacing: 0.5em;
-    margin-right: -0.5em; });
+  .if-width-at-least(480px, { letter-spacing: 0.5em; margin-right: -0.5em; });
 
   text-align: right;
   background-color: @footer-background;
@@ -149,9 +145,7 @@ body {
     text-decoration: none;
     margin-left: -0.25em;
     padding-left: 0.25em;
-    .if-width-at-least(480px, {
-      margin-left: -0.5em;
-      padding-left: 0.5em; });
+    .if-width-at-least(480px, { margin-left: -0.5em; padding-left: 0.5em; });
     transition: all 0.25s;
 
     &:hover, &:focus {
