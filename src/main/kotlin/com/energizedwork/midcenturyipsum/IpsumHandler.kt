@@ -7,8 +7,11 @@ import ratpack.handling.Handler
 import ratpack.path.PathTokens
 import java.lang.Math.min
 import javax.inject.Inject as inject
+import javax.inject.Singleton as singleton
 
-class IpsumHandler inject constructor(private val generator: IpsumGenerator) : Handler {
+singleton class IpsumHandler
+inject constructor(private val generator: IpsumGenerator)
+: Handler {
 
   override fun handle(context: Context) {
     try {

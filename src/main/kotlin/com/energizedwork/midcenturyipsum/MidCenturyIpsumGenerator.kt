@@ -1,8 +1,9 @@
 package com.energizedwork.midcenturyipsum
 
 import java.util.Random
+import javax.inject.Singleton as singleton
 
-class MidCenturyIpsumGenerator : IpsumGenerator {
+singleton class MidCenturyIpsumGenerator : IpsumGenerator {
 
   companion object {
     val SENTENCES_PER_PARAGRAPH: IntRange = 2..8
