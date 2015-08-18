@@ -23,9 +23,48 @@
 @background-image-height: 511px;
 
 @import (less) "_normalize.css";
-@import (less) "_layout.less";
-@import (less) "_colorscheme.less";
-@import (less) "_breakpoints.less";
+
+html {
+  font-size: @base-font-size;
+  line-height: @base-line-height;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.content-width() {
+  max-width: @content-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#page-header, #customize-form, #ipsum, #page-footer p {
+  .content-width;
+}
+
+@grey: #9d9ea3;
+@text-black: #333;
+@blue: #0b568d;
+@white: #ffffff;
+@yellow: #fff700;
+@black: #000;
+
+@body-background: @white;
+@header-background: @grey;
+@footer-background: @black;
+@footer-link-color: @yellow;
+
+@contrasted-dark-default: @text-black;
+@contrasted-light-default: @white;
+
+.if-width-at-least(@query, @content) {
+  @media only screen and (min-width: @query) {
+    @content();
+  }
+}
 
 body {
   background-color: @body-background;
