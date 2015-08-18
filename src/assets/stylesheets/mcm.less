@@ -137,7 +137,12 @@ body {
   p {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
-    padding: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 1rem;
+
+    margin-right: 0.25em;
+    .if-width-at-least(480px, { margin-right: 0.5em; });
   }
 
   a {
