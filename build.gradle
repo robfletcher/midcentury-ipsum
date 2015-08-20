@@ -13,7 +13,6 @@ buildscript {
 apply from: "${rootDir}/gradle/kotlin.gradle"
 apply from: "${rootDir}/gradle/ratpack.gradle"
 apply from: "${rootDir}/gradle/asspipe.gradle"
-apply from: "${rootDir}/gradle/spock.gradle"
 apply from: "${rootDir}/gradle/heroku.gradle"
 apply from: "${rootDir}/gradle/wrapper.gradle"
 apply from: "${rootDir}/gradle/idea.gradle"
@@ -21,5 +20,6 @@ apply from: "${rootDir}/gradle/idea.gradle"
 mainClassName = "com.energizedwork.midcenturyipsum.MidcenturyipsumPackage"
 
 dependencies {
+  testCompile "org.mockito:mockito-core:1.+"
   testCompile "org.jodd:jodd-lagarto:3.6.6"
 }
