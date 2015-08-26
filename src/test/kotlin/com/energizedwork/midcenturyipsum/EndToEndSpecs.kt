@@ -32,6 +32,7 @@ import jodd.jerry.Jerry
 import jodd.jerry.Jerry.jerry
 import org.jetbrains.spek.api.Spek
 import ratpack.http.client.ReceivedResponse
+import ratpack.test.MainClassApplicationUnderTest
 import ratpack.test.http.TestHttpClient
 import ratpack.test.http.TestHttpClient.testHttpClient
 import kotlin.test.assertEquals
@@ -44,7 +45,7 @@ class EndToEndSpecs : Spek() {
 
   init {
     given("the application is running") {
-      val app = MainFunctionApplicationUnderTest(::main)
+      val app = MainClassApplicationUnderTest(Main.javaClass)
       val client = testHttpClient(app)
 
       afterOn { app.stop() }

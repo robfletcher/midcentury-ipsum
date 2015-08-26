@@ -30,12 +30,14 @@ import ratpack.handlebars.HandlebarsModule
 import ratpack.handling.Chain
 import ratpack.server.BaseDir
 import ratpack.server.RatpackServer
+import kotlin.platform.platformStatic
 
 val DEFAULT_PARAGRAPHS: Int = 4
 val MAX_PARAGRAPHS: Int = 25
 
-fun main(args: Array<String>) {
-  RatpackServer.start { server ->
+object Main {
+  @platformStatic
+  fun main(args: Array<String>): Unit = RatpackServer.start { server ->
     server
       .serverConfig { config ->
         config.baseDir(BaseDir.find())

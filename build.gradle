@@ -17,7 +17,7 @@ apply from: "${rootDir}/gradle/heroku.gradle"
 apply from: "${rootDir}/gradle/wrapper.gradle"
 apply from: "${rootDir}/gradle/idea.gradle"
 
-mainClassName = "com.energizedwork.midcenturyipsum.MidcenturyipsumPackage"
+mainClassName = "com.energizedwork.midcenturyipsum.Main"
 
 dependencies {
   testCompile "org.mockito:mockito-core:1.+"
