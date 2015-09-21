@@ -29,8 +29,8 @@ import com.google.inject.AbstractModule
 class IpsumGeneratorModule : AbstractModule() {
 
   protected override fun configure(): Unit {
-    bind(javaClass<IpsumGenerator>()).to(javaClass<MidCenturyIpsumGenerator>())
-    bind(javaClass<IpsumHandler>())
+    bind(IpsumGenerator::class.java).to(MidCenturyIpsumGenerator::class.java)
+    bind(IpsumHandler::class.java)
   }
 
 }

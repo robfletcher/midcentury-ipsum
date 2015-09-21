@@ -30,13 +30,12 @@ import ratpack.handlebars.HandlebarsModule
 import ratpack.handling.Chain
 import ratpack.server.BaseDir
 import ratpack.server.RatpackServer
-import kotlin.platform.platformStatic
 
 val DEFAULT_PARAGRAPHS: Int = 4
 val MAX_PARAGRAPHS: Int = 25
 
 object Main {
-  @platformStatic
+  @JvmStatic
   fun main(args: Array<String>): Unit = RatpackServer.start { server ->
     server
       .serverConfig { config ->
@@ -44,12 +43,12 @@ object Main {
       }
       .registry(Guice.registry { bindingSpec ->
         bindingSpec
-          .module(javaClass<IpsumGeneratorModule>())
-          .module(javaClass<HandlebarsModule>())
-          .module(javaClass<AssetPipelineModule>())
+          .module(IpsumGeneratorModule::class.java)
+          .module(HandlebarsModule::class.java)
+          .module(AssetPipelineModule::class.java)
       })
       .handlers { chain: Chain ->
-        chain.get(":paras?", javaClass<IpsumHandler>())
+        chain.get(":paras?", IpsumHandler::class.java)
       }
   }
 }

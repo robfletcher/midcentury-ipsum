@@ -24,18 +24,18 @@
 
 package com.energizedwork.midcenturyipsum
 
-import java.util.Random
-import javax.inject.Singleton as singleton
+import java.util.*
+import javax.inject.Singleton
 
-singleton class MidCenturyIpsumGenerator : IpsumGenerator {
+@Singleton class MidCenturyIpsumGenerator : IpsumGenerator {
 
   companion object {
     val SENTENCES_PER_PARAGRAPH: IntRange = 2..8
     val WORDS_PER_SENTENCE: IntRange = 3..9
-    val WORD_LIST: List<String> = javaClass<MidCenturyIpsumGenerator>()
+    val WORD_LIST: List<String> = MidCenturyIpsumGenerator::class.java
       .getResource("corpus.txt")
       .readText()
-      .splitBy("\n")
+      .split("\n")
     val PUNCTUATION: List<String> = listOf(".", ".", "?", "!")
     val randomizer = Random()
   }

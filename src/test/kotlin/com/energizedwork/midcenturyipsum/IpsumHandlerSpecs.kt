@@ -32,7 +32,7 @@ import org.mockito.Mockito.verify
 import org.mockito.internal.stubbing.answers.Returns
 import ratpack.handlebars.Template
 import ratpack.test.handling.RequestFixture.requestFixture
-import java.util.Objects
+import java.util.*
 import kotlin.test.assertEquals
 
 class IpsumHandlerSpecs : Spek() {
@@ -44,7 +44,7 @@ class IpsumHandlerSpecs : Spek() {
   init {
     given("a handler instance") {
       on("receiving a request with no 'paras' key") {
-        val generator = mock(javaClass<IpsumGenerator>(),
+        val generator = mock(IpsumGenerator::class.java,
                              Returns(listOf(STUB_RESPONSE)))
         val handler = IpsumHandler(generator)
         val result = requestFixture()
@@ -52,7 +52,7 @@ class IpsumHandlerSpecs : Spek() {
           .handle(handler)
 
         it("responds successfully") {
-          assertEquals(OK, result.getStatus().getCode())
+          assertEquals(OK, result.status.code)
         }
 
         it("renders 4 paragraphs by default") {
@@ -62,7 +62,7 @@ class IpsumHandlerSpecs : Spek() {
       }
 
       on("receiving a request with a 'paras' key") {
-        val generator = mock(javaClass<IpsumGenerator>(),
+        val generator = mock(IpsumGenerator::class.java,
                              Returns(listOf(STUB_RESPONSE)))
         val handler = IpsumHandler(generator)
         val result = requestFixture()
@@ -70,7 +70,7 @@ class IpsumHandlerSpecs : Spek() {
           .handle(handler)
 
         it("responds successfully") {
-          assertEquals(OK, result.getStatus().getCode())
+          assertEquals(OK, result.status.code)
         }
 
         it("renders the requested number of paragraphs") {
@@ -83,7 +83,7 @@ class IpsumHandlerSpecs : Spek() {
         "text/plain" to STUB_RESPONSE
       )) {
         on("receiving a request with an 'Accept' header of '$mimeType'") {
-          val generator = mock(javaClass<IpsumGenerator>(),
+          val generator = mock(IpsumGenerator::class.java,
                                Returns(listOf(STUB_RESPONSE)))
           val handler = IpsumHandler(generator)
           val result = requestFixture()
@@ -91,21 +91,21 @@ class IpsumHandlerSpecs : Spek() {
             .handle(handler)
 
           it("responds successfully") {
-            assertEquals(OK, result.getStatus().getCode())
+            assertEquals(OK, result.status.code)
           }
 
           it("renders the requested content type") {
-            assertEquals(mimeType, result.getHeaders().get(CONTENT_TYPE))
+            assertEquals(mimeType, result.headers.get(CONTENT_TYPE))
           }
 
           it("renders content in the correct format") {
-            assertEquals(text, result.getBodyText())
+            assertEquals(text, result.bodyText)
           }
         }
       }
 
       on("receiving a request with an 'Accept' header of 'text/html'") {
-        val generator = mock(javaClass<IpsumGenerator>(),
+        val generator = mock(IpsumGenerator::class.java,
                              Returns(listOf(STUB_RESPONSE)))
         val handler = IpsumHandler(generator)
         val result = requestFixture()
@@ -113,19 +113,19 @@ class IpsumHandlerSpecs : Spek() {
           .handle(handler)
 
         it("responds successfully") {
-          assertEquals(OK, result.getStatus().getCode())
+          assertEquals(OK, result.status.code)
         }
 
         it("renders the requested content type") {
-          assertEquals("text/html", result.getHeaders().get(CONTENT_TYPE))
+          assertEquals("text/html", result.headers.get(CONTENT_TYPE))
         }
 
         it("renders an HTML template") {
-          val template = result.rendered(javaClass<Template>())
-          assertEquals("index.html", template.getName())
+          val template = result.rendered(Template::class.java)
+          assertEquals("index.html", template.name)
           assertEquals(
             mapOf("ipsum" to listOf(STUB_RESPONSE), "paras" to 4),
-            template.getModel())
+            template.model)
         }
       }
     }

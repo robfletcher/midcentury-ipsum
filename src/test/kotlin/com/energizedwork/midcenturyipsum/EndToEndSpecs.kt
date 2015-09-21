@@ -54,7 +54,7 @@ class EndToEndSpecs : Spek() {
         val response = client.get()
 
         it("should return OK") {
-          assertEquals(OK, response.getStatusCode())
+          assertEquals(OK, response.statusCode)
         }
 
         it("should return plain text") {
@@ -63,7 +63,7 @@ class EndToEndSpecs : Spek() {
 
         it("should return $DEFAULT_PARAGRAPHS paragraphs") {
           assertEquals(DEFAULT_PARAGRAPHS,
-                       response.asText().splitBy("\n").size())
+                       response.asText().split("\n").size())
         }
       }
 
@@ -71,7 +71,7 @@ class EndToEndSpecs : Spek() {
         val response = client.accept("text/html").get()
 
         it("should return OK") {
-          assertEquals(OK, response.getStatusCode())
+          assertEquals(OK, response.statusCode)
         }
 
         it("should return HTML") {
@@ -88,7 +88,7 @@ class EndToEndSpecs : Spek() {
         val response = client.accept("application/json").get()
 
         it("should return OK") {
-          assertEquals(OK, response.getStatusCode())
+          assertEquals(OK, response.statusCode)
         }
 
         it("should return JSON") {
@@ -104,7 +104,7 @@ class EndToEndSpecs : Spek() {
         val response = client.get("3daft")
 
         it("should return Bad Request") {
-          assertEquals(BAD_REQUEST, response.getStatusCode())
+          assertEquals(BAD_REQUEST, response.statusCode)
         }
       }
 
@@ -113,7 +113,7 @@ class EndToEndSpecs : Spek() {
           val response = client.accept("application/json").get("$i")
 
           it("should return OK") {
-            assertEquals(OK, response.getStatusCode())
+            assertEquals(OK, response.statusCode)
           }
 
           it("should return $i paragraphs") {
@@ -126,7 +126,7 @@ class EndToEndSpecs : Spek() {
         val response = client.accept("application/json").get("${MAX_PARAGRAPHS + 1}")
 
         it("should return OK") {
-          assertEquals(OK, response.getStatusCode())
+          assertEquals(OK, response.statusCode)
         }
 
         it("should return $MAX_PARAGRAPHS paragraphs") {
@@ -136,12 +136,12 @@ class EndToEndSpecs : Spek() {
     }
   }
 
-  fun ReceivedResponse.getContentType(): String = getHeaders().get(CONTENT_TYPE)
-  fun ReceivedResponse.asJson(): JsonNode = ObjectMapper().readTree(getBody().getBytes())
-  fun ReceivedResponse.asText(): String = getBody().getText()
-  fun ReceivedResponse.asDocument(): Jerry = jerry(getBody().getText())
+  fun ReceivedResponse.getContentType(): String = headers.get(CONTENT_TYPE)
+  fun ReceivedResponse.asJson(): JsonNode = ObjectMapper().readTree(body.bytes)
+  fun ReceivedResponse.asText(): String = body.text
+  fun ReceivedResponse.asDocument(): Jerry = jerry(body.text)
 
   fun TestHttpClient.accept(mimeType: String): TestHttpClient = requestSpec {
-    it.getHeaders().add(ACCEPT, mimeType)
+    it.headers.add(ACCEPT, mimeType)
   }
 }

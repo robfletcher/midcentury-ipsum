@@ -6,6 +6,6 @@ repositories {
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib:0.12.1230"
-  testCompile "org.jetbrains.spek:spek:0.1-SNAPSHOT"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:0.13.1513"
+  testCompile "org.jetbrains.spek:spek:0.1.175"
 }

@@ -30,25 +30,25 @@ import ratpack.handling.Context
 import ratpack.handling.Handler
 import ratpack.path.PathTokens
 import java.lang.Math.min
-import javax.inject.Inject as inject
-import javax.inject.Singleton as singleton
+import javax.inject.Inject
+import javax.inject.Singleton
 
-singleton class IpsumHandler
-inject constructor(private val generator: IpsumGenerator)
+@Singleton class IpsumHandler
+@Inject constructor(private val generator: IpsumGenerator)
 : Handler {
 
   override fun handle(context: Context) {
     try {
       val paras = min(
-        context.getPathTokens().asInt("paras", DEFAULT_PARAGRAPHS),
+        context.pathTokens.asInt("paras", DEFAULT_PARAGRAPHS),
         MAX_PARAGRAPHS)
       val ipsum = generator.paragraphs(paras)
 
       context.byContent {
         it.plainText {
-          context.getResponse().send(ipsum.join("\n"))
+          context.response.send(ipsum.join("\n"))
         } json {
-          context.getResponse().send(toJson(ipsum))
+          context.response.send(toJson(ipsum))
         } html {
           context.render(
             handlebarsTemplate("index.html",
