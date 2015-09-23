@@ -25,6 +25,7 @@
 package com.energizedwork.midcenturyipsum
 
 import asset.pipeline.ratpack.AssetPipelineModule
+import org.slf4j.LoggerFactory.getLogger
 import ratpack.guice.Guice
 import ratpack.handlebars.HandlebarsModule
 import ratpack.handling.Chain
@@ -35,20 +36,28 @@ val DEFAULT_PARAGRAPHS: Int = 4
 val MAX_PARAGRAPHS: Int = 25
 
 object Main {
+  private val log = getLogger(Main::class.java)
+
   @JvmStatic
-  fun main(args: Array<String>): Unit = RatpackServer.start { server ->
-    server
-      .serverConfig { config ->
-        config.baseDir(BaseDir.find())
-      }
-      .registry(Guice.registry { bindingSpec ->
-        bindingSpec
-          .module(IpsumGeneratorModule::class.java)
-          .module(HandlebarsModule::class.java)
-          .module(AssetPipelineModule::class.java)
-      })
-      .handlers { chain: Chain ->
-        chain.get(":paras?", IpsumHandler::class.java)
-      }
+  fun main(args: Array<String>): Unit {
+    try {
+      RatpackServer.of { server ->
+        server
+          .serverConfig { config ->
+            config.baseDir(BaseDir.find())
+          }
+          .registry(Guice.registry { bindingSpec ->
+            bindingSpec
+              .module(IpsumGeneratorModule::class.java)
+              .module(HandlebarsModule::class.java)
+              .module(AssetPipelineModule::class.java)
+          })
+          .handlers { chain: Chain ->
+            chain.get(":paras?", IpsumHandler::class.java)
+          }
+      }.start()
+    } catch (e: Exception) {
+      log.error("", e)
+    }
   }
 }

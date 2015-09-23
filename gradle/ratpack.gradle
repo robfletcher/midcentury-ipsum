@@ -5,8 +5,7 @@ repositories {
 }
 
 dependencies {
-  springloaded "org.springframework:springloaded:1.2.3.RELEASE"
-  compile "io.ratpack:ratpack-handlebars:0.9.19"
+  compile "io.ratpack:ratpack-handlebars:1.0.0"
 }
 
 run {
