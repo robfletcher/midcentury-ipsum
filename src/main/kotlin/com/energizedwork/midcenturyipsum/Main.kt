@@ -50,7 +50,10 @@ object Main {
             bindingSpec
               .module(IpsumGeneratorModule::class.java)
               .module(HandlebarsModule::class.java)
-              .module(AssetPipelineModule::class.java)
+              .module(AssetPipelineModule::class.java) { config ->
+                // only matters at development time, and path is relative to the build path
+                config.sourcePath("../../../src/assets")
+              }
           })
           .handlers { chain: Chain ->
             chain.get(":paras?", IpsumHandler::class.java)
