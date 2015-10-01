@@ -5,7 +5,7 @@ buildscript {
   dependencies {
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:0.13.1513"
     classpath "io.ratpack:ratpack-gradle:1.0.0"
-    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0"
+    classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.5.2"
     classpath "com.bertramlabs.plugins:less-asset-pipeline:2.3.0"
   }
 }
