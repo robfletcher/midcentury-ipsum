@@ -46,7 +46,7 @@ import javax.inject.Singleton
 
       context.byContent {
         it.plainText {
-          context.response.send(ipsum.join("\n"))
+          context.response.send(ipsum.joinToString("\n"))
         } json {
           context.response.send(toJson(ipsum))
         } html {

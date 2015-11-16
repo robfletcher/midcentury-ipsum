@@ -63,7 +63,7 @@ class EndToEndSpecs : Spek() {
 
         it("should return $DEFAULT_PARAGRAPHS paragraphs") {
           assertEquals(DEFAULT_PARAGRAPHS,
-                       response.asText().split("\n").size())
+                       response.asText().split("\n").size)
         }
       }
 

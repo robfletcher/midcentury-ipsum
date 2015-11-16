@@ -49,7 +49,7 @@ import javax.inject.Singleton
   }
 
   fun sentences(count: Int): String {
-    return (1..count).map { sentence() }.join(" ")
+    return (1..count).map { sentence() }.joinToString(" ")
   }
 
   fun sentence(): String {
@@ -71,7 +71,10 @@ import javax.inject.Singleton
   }
 
   fun words(count: Int): String {
-    return sequence { word() } distinctBy { it } take(count) join(" ")
+    return sequence { word() }
+      .distinctBy { it }
+      .take(count)
+      .joinToString(" ")
   }
 
   fun punctuation(): String {
@@ -88,8 +91,8 @@ import javax.inject.Singleton
     }
   }
 
-  fun List<Any?>.range(): IntRange = 0..size()
+  fun List<Any?>.range(): IntRange = 0..size
   fun <T> List<T>.random(): T = get(range().random())
 
-  fun IntRange.random(): Int = randomizer.nextInt(end - start) + start
+  fun IntRange.random(): Int = randomizer.nextInt(endInclusive - start) + start
 }
